@@ -2,7 +2,7 @@ package com.pwillmann.moviediscovery.app
 
 import android.app.Application
 import com.pwillmann.moviediscovery.network.DadJokeService
-import com.pwillmann.moviediscovery.network.PopularTvShowsService
+import com.pwillmann.moviediscovery.network.TvShowsService
 import com.pwillmann.moviediscovery.network.TMDBBaseApiClient
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -27,15 +27,15 @@ class MvRxApplication : Application() {
         }
     }
 
-    private val popularTvShowsServiceModule: Module = applicationContext {
+    private val tvShowsServiceModule: Module = applicationContext {
         bean {
             return@bean TMDBBaseApiClient.getRetrofitBuilder(TMDBBaseApiClient.getClientBuilder().build())
-                    .build().create(PopularTvShowsService::class.java)
+                    .build().create(TvShowsService::class.java)
         }
     }
 
     override fun onCreate() {
         super.onCreate()
-        startKoin(this, listOf(dadJokeServiceModule, popularTvShowsServiceModule))
+        startKoin(this, listOf(dadJokeServiceModule, tvShowsServiceModule))
     }
 }
