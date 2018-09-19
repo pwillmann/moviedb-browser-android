@@ -1,0 +1,1 @@
+include ':app', ':core', ':views', ':models', ':network', ':resources',  'features:helloworld','features:browser' ,'features:dadjoke', 'features:flow'
