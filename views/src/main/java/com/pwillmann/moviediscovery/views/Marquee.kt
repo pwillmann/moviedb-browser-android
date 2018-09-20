@@ -26,7 +26,7 @@ class Marquee @JvmOverloads constructor(
     }
 
     @TextProp
-    fun setTitle(title: CharSequence) {
+    fun setTitle(title: CharSequence?) {
         titleView.text = title
     }
 

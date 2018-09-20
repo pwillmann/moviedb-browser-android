@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/browser_nav_graph"
+    app:startDestination="@id/browserFragment">
+
+    <fragment
+        android:id="@+id/browserFragment"
+        android:name="com.pwillmann.moviediscovery.features.browser.BrowserFragment">
+        <action
+            android:id="@+id/action_browserFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/res_anim_enter"
+            app:exitAnim="@anim/res_anim_exit"
+            app:popEnterAnim="@anim/res_anim_pop_enter"
+            app:popExitAnim="@anim/res_anim_pop_exit"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.pwillmann.moviediscovery.features.detail.DetailFragment"/>
+</navigation>
