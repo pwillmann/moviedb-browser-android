@@ -8,3 +8,14 @@ data class PaginatedListResponse<T>(
     @Json(name = "total_pages") val totalPages: Int,
     val results: List<T>
 )
+
+fun <T> PaginatedListResponse<T>?.mergeWith(newResponse: PaginatedListResponse<T>?): PaginatedListResponse<T>? {
+    if (newResponse == null) return this
+    if (this == null) return newResponse
+    return this.copy(
+            page = newResponse.page,
+            totalResults = newResponse.totalResults,
+            totalPages = newResponse.totalPages,
+            results = this.results + newResponse.results
+    )
+}

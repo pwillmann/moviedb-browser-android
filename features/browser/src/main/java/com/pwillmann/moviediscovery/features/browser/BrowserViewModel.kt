@@ -10,14 +10,13 @@ import com.airbnb.mvrx.Uninitialized
 import com.pwillmann.moviediscovery.core.MvRxViewModel
 import com.pwillmann.moviediscovery.models.PaginatedListResponse
 import com.pwillmann.moviediscovery.models.TvShowCompact
+import com.pwillmann.moviediscovery.models.mergeWith
 import com.pwillmann.moviediscovery.network.TvShowsService
 import org.koin.android.ext.android.inject
 
 data class BrowserState(
-    /** We use this request to store the list of all tv shows */
-val tvShowsResponse: PaginatedListResponse<TvShowCompact> = PaginatedListResponse(0, 0, 0, emptyList()),
-    /** We use this Async to keep track of the state of the current network request */
-val request: Async<PaginatedListResponse<TvShowCompact>> = Uninitialized
+    val tvShowsResponse: PaginatedListResponse<TvShowCompact>? = PaginatedListResponse(0, 0, 0, emptyList()),
+    val request: Async<PaginatedListResponse<TvShowCompact>> = Uninitialized
 ) : MvRxState
 
 /**
@@ -32,28 +31,33 @@ class BrowserViewModel(
         fetchNextPage()
     }
 
+    /**
+     * Performs a clean reload of the tv shows data by disposing all of the already loaded data and
+     * fetching them again
+     */
     fun refresh() = withState { state ->
         if (state.request is Loading) return@withState
         tvShowsService
-                .getPopularTvShows(page = state.tvShowsResponse.page + 1)
+                .getPopularTvShows(page = 1)
                 .execute {
-                    copy(request = it, tvShowsResponse = it()!!)
+                    copy(request = it, tvShowsResponse = if (it.complete) it() else it()
+                            ?: tvShowsResponse)
                 }
     }
 
+    /**
+     * behaves like refresh() for the first time its called, every subsequent call will fetch one more
+     * page and merge it into the already available list of tv shows
+     */
     fun fetchNextPage() = withState { state ->
         if (state.request is Loading) return@withState
-        if (state.tvShowsResponse.page >= state.tvShowsResponse.totalPages && state.tvShowsResponse.page != 0) return@withState
+        if (state.tvShowsResponse != null && (state.tvShowsResponse.page >= state.tvShowsResponse.totalPages && state.tvShowsResponse.page != 0)) return@withState
 
+        val currentPage = state.tvShowsResponse?.page ?: 0
         tvShowsService
-                .getPopularTvShows(page = state.tvShowsResponse.page + 1)
+                .getPopularTvShows(page = currentPage + 1)
                 .execute {
-                    copy(request = it, tvShowsResponse = state.tvShowsResponse.copy(
-                            results = state.tvShowsResponse.results + (it()?.results
-                                    ?: emptyList()),
-                            page = it()?.page ?: state.tvShowsResponse.page,
-                            totalPages = it()?.totalPages ?: state.tvShowsResponse.totalPages,
-                            totalResults = it()?.totalResults ?: state.tvShowsResponse.totalResults))
+                    copy(request = it, tvShowsResponse = state.tvShowsResponse.mergeWith(it()))
                 }
     }
 
