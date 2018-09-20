@@ -5,6 +5,7 @@
     app:startDestination="@id/main">
     <include app:graph="@navigation/flow_nav_graph" />
     <include app:graph="@navigation/dadjoke_nav_graph" />
+    <include app:graph="@navigation/browser_nav_graph" />
     <fragment
         android:id="@+id/main"
         android:name="com.pwillmann.moviediscovery.app.MainFragment">
@@ -31,7 +32,7 @@
             app:popExitAnim="@anim/res_anim_pop_exit"/>
         <action
             android:id="@+id/action_main_to_browserFragment"
-            app:destination="@id/browserFragment"
+            app:destination="@id/browser_nav_graph"
             app:enterAnim="@anim/res_anim_enter"
             app:exitAnim="@anim/res_anim_exit"
             app:popEnterAnim="@anim/res_anim_pop_enter"

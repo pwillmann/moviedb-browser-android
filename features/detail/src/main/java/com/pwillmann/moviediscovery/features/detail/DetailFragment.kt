@@ -1,4 +1,4 @@
-package com.pwillmann.moviediscovery.features.browser
+package com.pwillmann.moviediscovery.features.detail
 
 import android.os.Bundle
 import android.os.Parcelable
@@ -11,25 +11,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.airbnb.mvrx.BaseMvRxFragment
 import com.airbnb.mvrx.MvRx
 import com.airbnb.mvrx.fragmentViewModel
+import com.pwillmann.moviediscovery.core.carousel
 import com.pwillmann.moviediscovery.core.simpleController
-import com.pwillmann.moviediscovery.features.detail.DetailStateArgs
+import com.pwillmann.moviediscovery.views.BasicRowModel_
+import com.pwillmann.moviediscovery.views.LoadingRowModel_
 import com.pwillmann.moviediscovery.views.basicRow
 import com.pwillmann.moviediscovery.views.loadingRow
 import com.pwillmann.moviediscovery.views.marquee
 
 private const val TAG = "BrowserFragment"
 
-class BrowserFragment : BaseMvRxFragment() {
+class DetailFragment : BaseMvRxFragment() {
     protected lateinit var constraintLayout: ConstraintLayout
     protected lateinit var recyclerView: EpoxyRecyclerView
     protected lateinit var pullToRefreshLayout: SwipeRefreshLayout
 
     protected val epoxyController by lazy { epoxyController() }
-    private val viewModel: BrowserViewModel by fragmentViewModel()
+    private val viewModel: DetailViewModel by fragmentViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +44,7 @@ class BrowserFragment : BaseMvRxFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.browser_fragment, container, false).apply {
+        return inflater.inflate(R.layout.detail_fragment, container, false).apply {
             recyclerView = findViewById(R.id.recycler_view)
             constraintLayout = findViewById(R.id.container)
             pullToRefreshLayout = findViewById(R.id.swiperefresh)
@@ -56,14 +59,19 @@ class BrowserFragment : BaseMvRxFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         pullToRefreshLayout.setOnRefreshListener {
-            viewModel.refresh()
-            pullToRefreshLayout.isRefreshing = false
+            viewModel.fetchTvShowData()
+            viewModel.refreshSimilarTvShows()
         }
 
-        viewModel.asyncSubscribe(BrowserState::request, onFail = { error ->
+        viewModel.asyncSubscribe(DetailState::tvShowDetailRequest, onFail = { error ->
             Snackbar.make(constraintLayout, "Tv Shows request failed.", Snackbar.LENGTH_INDEFINITE)
                     .show()
             Log.w(TAG, "Tv Shows request failed", error)
+        })
+        viewModel.asyncSubscribe(DetailState::similarTvShowsRequest, onFail = { error ->
+            Snackbar.make(constraintLayout, "Similar TV Shows request failed.", Snackbar.LENGTH_INDEFINITE)
+                    .show()
+            Log.w(TAG, "Similar TV Shows request failed", error)
         })
     }
 
@@ -89,7 +97,8 @@ class BrowserFragment : BaseMvRxFragment() {
     }
 
     fun epoxyController() = simpleController(viewModel) { state ->
-        if (state.tvShowsResponse == null) {
+        val tvShow = state.tvShow
+        if (tvShow == null) {
             loadingRow {
                 // Changing the ID will force it to rebind when new data is loaded even if it is
                 // still on screen which will ensure that we trigger loading again.
@@ -99,25 +108,44 @@ class BrowserFragment : BaseMvRxFragment() {
         }
         marquee {
             id("marquee")
-            title("Dad Jokes")
+            title(tvShow.name)
         }
 
-        state.tvShowsResponse.results.forEach { tvShow ->
-            basicRow {
-                id(tvShow.id)
-                title(tvShow.name)
-                clickListener { _ ->
-                    navigateTo(R.id.action_browserFragment_to_detailFragment,
-                            DetailStateArgs(tvShow.id))
-                }
+        basicRow {
+            id(tvShow.id)
+            title(tvShow.originalName)
+            subtitle(tvShow.overview)
+            clickListener { _ -> }
+        }
+
+        val similarTvShowsResponse = state.similarTvShowsResponse
+        if (similarTvShowsResponse == null) {
+            loadingRow {
+                id("loading")
             }
+            return@simpleController
+        }
+        pullToRefreshLayout.isRefreshing = false
+
+        val similarTvShows = similarTvShowsResponse.results
+        val carouselModels: MutableList<EpoxyModel<*>> = mutableListOf()
+
+        for (similarShow in similarTvShows) {
+            carouselModels.add(BasicRowModel_()
+                    .id(similarShow.toString())
+                    .title(similarShow.name))
+        }
+        if (similarTvShowsResponse.page < similarTvShowsResponse.totalPages) {
+            carouselModels.add(
+                    LoadingRowModel_()
+                            .id("load-more-similar-shows")
+                            .onBind { _, _, _ -> viewModel.fetchNextSimilarTvShows() })
         }
 
-        loadingRow {
-            // Changing the ID will force it to rebind when new data is loaded even if it is
-            // still on screen which will ensure that we trigger loading again.
-            id("loading${state.tvShowsResponse?.page ?: 1}")
-            onBind { _, _, _ -> viewModel.fetchNextPage() }
+        carousel {
+            id("shifts-carousel")
+            models(carouselModels)
+            numViewsToShowOnScreen(1.5f)
         }
     }
 }

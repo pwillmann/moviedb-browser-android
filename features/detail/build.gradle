@@ -23,7 +23,6 @@ dependencies {
     implementation project(':core')
     implementation project(':models')
     implementation project(':network')
-    implementation project(':features:detail')
     implementation project(':resources')
     implementation project(':views')
 
