@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="browser_title">Popular TV Shows</string>
+    <string name="browser_error_tvshows">Could not load TV Shows</string>
+    <string name="browser_error_retry">Retry</string>
+</resources>

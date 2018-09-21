@@ -8,10 +8,9 @@ android {
     defaultConfig {
         minSdkVersion minSdk
         targetSdkVersion targetSdk
-        versionCode Integer.parseInt(VERSION_CODE)
-        versionName VERSION_NAME
     }
     buildToolsVersion buildToolsVersion
+    lintOptions.lintConfig = rootProject.file("lint.xml")
 }
 
 androidExtensions {

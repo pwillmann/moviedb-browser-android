@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:minWidth="200dp"
+    tools:layout_width="200dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:selectableItemBackground">
+
+        <ImageView
+            android:id="@+id/poster"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:layout_height="120dp"
+            tools:src="@color/steel_light" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/gunmetal"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:maxLines="1"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintTop_toBottomOf="@+id/poster"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/ratingIcon"
+            tools:text="The Dark Knight" />
+
+        <ImageView
+            android:id="@+id/ratingIcon"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:tint="@color/yellow"
+            app:layout_constraintStart_toStartOf="@+id/title"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:srcCompat="@drawable/res_vec_ic_star" />
+
+        <TextView
+            android:id="@+id/rating"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="4dp"
+            android:ellipsize="end"
+            android:gravity="top|start"
+            android:textColor="@color/gunmetal"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/ratingIcon"
+            app:layout_constraintStart_toEndOf="@+id/ratingIcon"
+            app:layout_constraintTop_toTopOf="@+id/ratingIcon"
+            tools:text="9.1" />
+
+        <TextView
+            android:id="@+id/voteCount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:ellipsize="end"
+            android:gravity="top|start"
+            android:textColor="@color/steel"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@id/rating"
+            app:layout_constraintStart_toEndOf="@+id/rating"
+            tools:text="(2018)" />
+    </android.support.constraint.ConstraintLayout>
+</android.support.design.card.MaterialCardView>
+

@@ -8,10 +8,9 @@ android {
     defaultConfig {
         minSdkVersion minSdk
         targetSdkVersion targetSdk
-        versionCode Integer.parseInt(VERSION_CODE)
-        versionName VERSION_NAME
     }
     buildToolsVersion buildToolsVersion
+    lintOptions.lintConfig = rootProject.file("lint.xml")
 }
 
 androidExtensions {
@@ -35,10 +34,15 @@ dependencies {
     implementation "android.arch.navigation:navigation-fragment-ktx:$navVersion"
     implementation "android.arch.navigation:navigation-ui-ktx:$navVersion"
 
+    implementation ("com.github.bumptech.glide:glide:$glideVersion") {
+        exclude group: "com.android.support"
+    }
+
 
     implementation "com.airbnb.android:mvrx:$mvRxVersion"
     implementation("com.airbnb.android:epoxy:$epoxyVersion") { exclude group: 'com.android.support' }
     kapt "com.airbnb.android:epoxy-processor:$epoxyVersion"
+
 
 
     implementation "org.koin:koin-android-architecture:$koinVersion"

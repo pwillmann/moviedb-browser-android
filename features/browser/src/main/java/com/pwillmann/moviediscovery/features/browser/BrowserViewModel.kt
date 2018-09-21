@@ -6,6 +6,7 @@ import com.airbnb.mvrx.BaseMvRxViewModel
 import com.airbnb.mvrx.Loading
 import com.airbnb.mvrx.MvRxState
 import com.airbnb.mvrx.MvRxViewModelFactory
+import com.airbnb.mvrx.Success
 import com.airbnb.mvrx.Uninitialized
 import com.pwillmann.moviediscovery.core.MvRxViewModel
 import com.pwillmann.moviediscovery.models.PaginatedListResponse
@@ -19,9 +20,6 @@ data class BrowserState(
     val request: Async<PaginatedListResponse<TvShowCompact>> = Uninitialized
 ) : MvRxState
 
-/**
- * initialState *must* be implemented as a constructor parameter.
- */
 class BrowserViewModel(
     initialState: BrowserState,
     private val tvShowsService: TvShowsService
@@ -40,7 +38,7 @@ class BrowserViewModel(
         tvShowsService
                 .getPopularTvShows(page = 1)
                 .execute {
-                    copy(request = it, tvShowsResponse = if (it.complete) it() else it()
+                    copy(request = it, tvShowsResponse = if (it.complete && it is Success) it() else it()
                             ?: tvShowsResponse)
                 }
     }

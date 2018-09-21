@@ -1,15 +1,15 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion compileSdk
     defaultConfig {
         minSdkVersion minSdk
         targetSdkVersion targetSdk
-        versionCode Integer.parseInt(VERSION_CODE)
-        versionName VERSION_NAME
     }
     buildToolsVersion buildToolsVersion
+    lintOptions.lintConfig = rootProject.file("lint.xml")
 }
 
 dependencies {
@@ -21,5 +21,10 @@ dependencies {
     implementation "com.airbnb.android:mvrx:$mvRxVersion"
     implementation("com.airbnb.android:epoxy:$epoxyVersion") { exclude group: 'com.android.support' }
     kapt "com.airbnb.android:epoxy-processor:$epoxyVersion"
+
+    implementation ("com.github.bumptech.glide:glide:$glideVersion") {
+        exclude group: "com.android.support"
+    }
+    kapt "com.github.bumptech.glide:compiler:$glideVersion"
 
 }

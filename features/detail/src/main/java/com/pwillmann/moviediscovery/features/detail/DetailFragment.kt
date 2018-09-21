@@ -18,8 +18,9 @@ import com.airbnb.mvrx.MvRx
 import com.airbnb.mvrx.fragmentViewModel
 import com.pwillmann.moviediscovery.core.carousel
 import com.pwillmann.moviediscovery.core.simpleController
-import com.pwillmann.moviediscovery.views.BasicRowModel_
+import com.pwillmann.moviediscovery.network.TMDBBaseApiClient
 import com.pwillmann.moviediscovery.views.LoadingRowModel_
+import com.pwillmann.moviediscovery.views.TvItemCompactModel_
 import com.pwillmann.moviediscovery.views.basicRow
 import com.pwillmann.moviediscovery.views.loadingRow
 import com.pwillmann.moviediscovery.views.marquee
@@ -131,9 +132,13 @@ class DetailFragment : BaseMvRxFragment() {
         val carouselModels: MutableList<EpoxyModel<*>> = mutableListOf()
 
         for (similarShow in similarTvShows) {
-            carouselModels.add(BasicRowModel_()
-                    .id(similarShow.toString())
-                    .title(similarShow.name))
+            carouselModels.add(TvItemCompactModel_()
+                    .id(similarShow.id)
+                    .title(similarShow.name)
+                    .rating(similarShow.voteAverage.toString())
+                    .voteCount(similarShow.voteCount.toString())
+                    .posterImageUrl("${TMDBBaseApiClient.tmdbImageBaseUrl}/${TMDBBaseApiClient.posterSizes[TMDBBaseApiClient.Companion.ImageSize.SMALL.toString()]}/${similarShow.posterPath}")
+                    .clickListener { _ -> })
         }
         if (similarTvShowsResponse.page < similarTvShowsResponse.totalPages) {
             carouselModels.add(
