@@ -13,6 +13,7 @@ android {
         versionName VERSION_NAME
     }
     buildToolsVersion buildToolsVersion
+    lintOptions.lintConfig = rootProject.file("lint.xml")
 
 }
 

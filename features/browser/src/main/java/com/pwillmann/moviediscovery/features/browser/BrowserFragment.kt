@@ -17,18 +17,20 @@ import com.airbnb.mvrx.MvRx
 import com.airbnb.mvrx.fragmentViewModel
 import com.pwillmann.moviediscovery.core.simpleController
 import com.pwillmann.moviediscovery.features.detail.DetailStateArgs
-import com.pwillmann.moviediscovery.views.basicRow
+import com.pwillmann.moviediscovery.network.TMDBBaseApiClient
+import com.pwillmann.moviediscovery.network.TMDBBaseApiClient.Companion.tmdbImageBaseUrl
 import com.pwillmann.moviediscovery.views.loadingRow
-import com.pwillmann.moviediscovery.views.marquee
+import com.pwillmann.moviediscovery.views.titleRow
+import com.pwillmann.moviediscovery.views.tvItem
 
 private const val TAG = "BrowserFragment"
 
 class BrowserFragment : BaseMvRxFragment() {
-    protected lateinit var constraintLayout: ConstraintLayout
-    protected lateinit var recyclerView: EpoxyRecyclerView
-    protected lateinit var pullToRefreshLayout: SwipeRefreshLayout
+    private lateinit var constraintLayout: ConstraintLayout
+    private lateinit var recyclerView: EpoxyRecyclerView
+    private lateinit var pullToRefreshLayout: SwipeRefreshLayout
 
-    protected val epoxyController by lazy { epoxyController() }
+    private val epoxyController by lazy { epoxyController() }
     private val viewModel: BrowserViewModel by fragmentViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,14 +57,20 @@ class BrowserFragment : BaseMvRxFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        var errorSnackbar: Snackbar? = null
         pullToRefreshLayout.setOnRefreshListener {
             viewModel.refresh()
             pullToRefreshLayout.isRefreshing = false
+            if (errorSnackbar != null) {
+                errorSnackbar!!.dismiss()
+            }
         }
 
         viewModel.asyncSubscribe(BrowserState::request, onFail = { error ->
-            Snackbar.make(constraintLayout, "Tv Shows request failed.", Snackbar.LENGTH_INDEFINITE)
-                    .show()
+            errorSnackbar = Snackbar.make(constraintLayout, R.string.browser_error_tvshows, Snackbar.LENGTH_INDEFINITE)
+            errorSnackbar!!.setAction(R.string.browser_error_retry) { _ -> viewModel.refresh() }
+            errorSnackbar!!.show()
+
             Log.w(TAG, "Tv Shows request failed", error)
         })
     }
@@ -78,17 +86,12 @@ class BrowserFragment : BaseMvRxFragment() {
         super.onDestroyView()
     }
 
-    protected fun navigateTo(@IdRes actionId: Int, arg: Parcelable? = null) {
-        /**
-         * If we put a parcelable arg in [MvRx.KEY_ARG] then MvRx will attempt to call a secondary
-         * constructor on any MvRxState objects and pass in this arg directly.
-         * @see [com.pwillmann.moviediscovery.app.features.dadjoke.DadJokeDetailState]
-         */
+    private fun navigateTo(@IdRes actionId: Int, arg: Parcelable? = null) {
         val bundle = arg?.let { Bundle().apply { putParcelable(MvRx.KEY_ARG, it) } }
         findNavController().navigate(actionId, bundle)
     }
 
-    fun epoxyController() = simpleController(viewModel) { state ->
+    private fun epoxyController() = simpleController(viewModel) { state ->
         if (state.tvShowsResponse == null) {
             loadingRow {
                 // Changing the ID will force it to rebind when new data is loaded even if it is
@@ -97,15 +100,19 @@ class BrowserFragment : BaseMvRxFragment() {
             }
             return@simpleController
         }
-        marquee {
-            id("marquee")
-            title("Dad Jokes")
+        titleRow {
+            id("title")
+            title(R.string.browser_title)
         }
 
         state.tvShowsResponse.results.forEach { tvShow ->
-            basicRow {
+            tvItem {
                 id(tvShow.id)
                 title(tvShow.name)
+                summary(tvShow.overview)
+                rating(tvShow.voteAverage.toString())
+                voteCount(tvShow.voteCount.toString())
+                posterImageUrl("$tmdbImageBaseUrl/${TMDBBaseApiClient.posterSizes[TMDBBaseApiClient.Companion.ImageSize.SMALL.toString()]}/${tvShow.posterPath}")
                 clickListener { _ ->
                     navigateTo(R.id.action_browserFragment_to_detailFragment,
                             DetailStateArgs(tvShow.id))
