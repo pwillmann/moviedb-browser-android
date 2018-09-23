@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="res_padding_horizontal">8dp</dimen>
+    <dimen name="res_margin_single">8dp</dimen>
+    <dimen name="res_margin_double">16dp</dimen>
+    <dimen name="res_margin_triple">24dp</dimen>
 </resources>

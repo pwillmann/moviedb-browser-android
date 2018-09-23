@@ -1,6 +1,7 @@
 package com.pwillmann.moviediscovery.models
 
 import com.squareup.moshi.Json
+import java.util.Date
 
 data class TvShow(
     val id: Long?,
@@ -13,7 +14,7 @@ data class TvShow(
     @Json(name = "backdrop_path") val backdropPath: String?,
     @Json(name = "created_by") val creators: List<Creator>?,
     @Json(name = "episode_run_time") val episodeRunTime: List<Long>?,
-    @Json(name = "first_air_date") val firstAirDate: String?,
+    @Json(name = "first_air_date") val firstAirDate: Date?,
     @Json(name = "number_of_episodes") val numberOfEpisodes: Long?,
     @Json(name = "number_of_seasons") val numberOfSeasons: Long?,
     @Json(name = "origin_country") val originCountry: List<String>?,
