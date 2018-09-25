@@ -25,9 +25,13 @@ dependencies {
     implementation project(':resources')
     implementation project(':views')
 
-    implementation("com.android.support:appcompat-v7:$supportLibVersion") { exclude group: 'android.arch.lifecycle' }
+    implementation("com.android.support:appcompat-v7:$supportLibVersion") {
+        exclude group: 'android.arch.lifecycle'
+    }
     implementation "com.android.support:design:$supportLibVersion"
-    implementation("com.android.support:recyclerview-v7:$supportLibVersion") { exclude group: 'android.arch.lifecycle' }
+    implementation("com.android.support:recyclerview-v7:$supportLibVersion") {
+        exclude group: 'android.arch.lifecycle'
+    }
     implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
     implementation "android.arch.lifecycle:extensions:$lifecycleVersion"
     implementation "android.arch.navigation:navigation-fragment-ktx:$navVersion"
@@ -35,10 +39,19 @@ dependencies {
 
 
     implementation "com.airbnb.android:mvrx:$mvRxVersion"
-    implementation("com.airbnb.android:epoxy:$epoxyVersion") { exclude group: 'com.android.support' }
+    implementation("com.airbnb.android:epoxy:$epoxyVersion") {
+        exclude group: 'com.android.support'
+    }
     kapt "com.airbnb.android:epoxy-processor:$epoxyVersion"
 
-
     implementation "org.koin:koin-android-architecture:$koinVersion"
+
+    implementation("com.github.bumptech.glide:glide:$glideVersion") {
+        exclude group: "com.android.support"
+    }
+    kapt "com.github.bumptech.glide:compiler:$glideVersion"
+
+    implementation 'jp.wasabeef:glide-transformations:3.3.0'
+
 
 }

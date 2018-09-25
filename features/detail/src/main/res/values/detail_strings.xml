@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="detail_error_tvshow">Could not load data</string>
+    <string name="detail_error_similar">Could not load similar shows</string>
+    <string name="detail_error_retry">Retry</string>
+</resources>

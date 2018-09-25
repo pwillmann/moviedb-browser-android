@@ -5,39 +5,55 @@ import android.os.Parcelable
 import android.support.annotation.IdRes
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.Snackbar
-import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.airbnb.mvrx.BaseMvRxFragment
 import com.airbnb.mvrx.MvRx
 import com.airbnb.mvrx.fragmentViewModel
-import com.pwillmann.moviediscovery.core.carousel
+import com.pwillmann.moviediscovery.core.GlideApp
 import com.pwillmann.moviediscovery.core.simpleController
+import com.pwillmann.moviediscovery.models.TvShow
 import com.pwillmann.moviediscovery.network.TMDBBaseApiClient
 import com.pwillmann.moviediscovery.views.LoadingRowModel_
 import com.pwillmann.moviediscovery.views.TvItemCompactModel_
-import com.pwillmann.moviediscovery.views.basicRow
+import com.pwillmann.moviediscovery.views.card.ItemType
+import com.pwillmann.moviediscovery.views.card.cardCarousel
+import com.pwillmann.moviediscovery.views.card.cardLoading
+import com.pwillmann.moviediscovery.views.card.cardSpace
+import com.pwillmann.moviediscovery.views.card.cardText
+import com.pwillmann.moviediscovery.views.card.cardTitle
 import com.pwillmann.moviediscovery.views.loadingRow
-import com.pwillmann.moviediscovery.views.marquee
 
 private const val TAG = "BrowserFragment"
 
 class DetailFragment : BaseMvRxFragment() {
-    protected lateinit var constraintLayout: ConstraintLayout
-    protected lateinit var recyclerView: EpoxyRecyclerView
-    protected lateinit var pullToRefreshLayout: SwipeRefreshLayout
+    private lateinit var constraintLayout: ConstraintLayout
+    private lateinit var recyclerView: EpoxyRecyclerView
+    private lateinit var backgroundImageView: ImageView
+    private lateinit var ratingView: ConstraintLayout
 
-    protected val epoxyController by lazy { epoxyController() }
+    private lateinit var yearTextView: TextView
+    private lateinit var nameTextView: TextView
+    private lateinit var genresTextView: TextView
+    private lateinit var ratingTextView: TextView
+    private lateinit var voteCountTextView: TextView
+    private lateinit var progressBar: ProgressBar
+
+    private val epoxyController by lazy { epoxyController() }
     private val viewModel: DetailViewModel by fragmentViewModel()
+    var errorSnackbar: Snackbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        epoxyController.onRestoreInstanceState(savedInstanceState)
+//        epoxyController.onRestoreInstanceState(savedInstanceState)
     }
 
     override fun onCreateView(
@@ -45,10 +61,17 @@ class DetailFragment : BaseMvRxFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.detail_fragment, container, false).apply {
+        return inflater.inflate(R.layout.detail_fragment_main, container, false).apply {
             recyclerView = findViewById(R.id.recycler_view)
             constraintLayout = findViewById(R.id.container)
-            pullToRefreshLayout = findViewById(R.id.swiperefresh)
+            backgroundImageView = findViewById(R.id.background)
+            yearTextView = findViewById(R.id.year)
+            nameTextView = findViewById(R.id.name)
+            genresTextView = findViewById(R.id.genres)
+            ratingTextView = findViewById(R.id.rating)
+            voteCountTextView = findViewById(R.id.voteCount)
+            progressBar = findViewById(R.id.progressbar)
+            ratingView = findViewById(R.id.ratingView)
 
             recyclerView.setController(epoxyController)
         }
@@ -59,96 +82,129 @@ class DetailFragment : BaseMvRxFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        pullToRefreshLayout.setOnRefreshListener {
-            viewModel.fetchTvShowData()
-            viewModel.refreshSimilarTvShows()
-        }
+        ratingView.visibility = View.GONE
+        progressBar.visibility = View.VISIBLE
 
         viewModel.asyncSubscribe(DetailState::tvShowDetailRequest, onFail = { error ->
-            Snackbar.make(constraintLayout, "Tv Shows request failed.", Snackbar.LENGTH_INDEFINITE)
-                    .show()
+            errorSnackbar = Snackbar.make(constraintLayout, R.string.detail_error_tvshow, Snackbar.LENGTH_INDEFINITE)
+            errorSnackbar!!.setAction(R.string.detail_error_retry) { _ -> viewModel.fetchTvShowData() }
+            errorSnackbar!!.show()
             Log.w(TAG, "Tv Shows request failed", error)
+        }, onSuccess = { tvShow ->
+            setupBackgroundImage(tvShow)
+            setupHeader(tvShow)
         })
         viewModel.asyncSubscribe(DetailState::similarTvShowsRequest, onFail = { error ->
-            Snackbar.make(constraintLayout, "Similar TV Shows request failed.", Snackbar.LENGTH_INDEFINITE)
-                    .show()
+            errorSnackbar = Snackbar.make(constraintLayout, R.string.detail_error_similar, Snackbar.LENGTH_INDEFINITE)
+            errorSnackbar!!.setAction(R.string.detail_error_retry) { _ -> viewModel.refreshSimilarTvShows() }
+            errorSnackbar!!.show()
             Log.w(TAG, "Similar TV Shows request failed", error)
         })
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        epoxyController.onSaveInstanceState(outState)
+//        epoxyController.onSaveInstanceState(outState)
     }
 
     override fun onDestroyView() {
         epoxyController.cancelPendingModelBuild()
-        pullToRefreshLayout.setOnRefreshListener { }
+        if (errorSnackbar != null && errorSnackbar!!.isShown) {
+            errorSnackbar!!.dismiss()
+        }
         super.onDestroyView()
     }
 
-    protected fun navigateTo(@IdRes actionId: Int, arg: Parcelable? = null) {
-        /**
-         * If we put a parcelable arg in [MvRx.KEY_ARG] then MvRx will attempt to call a secondary
-         * constructor on any MvRxState objects and pass in this arg directly.
-         * @see [com.pwillmann.moviediscovery.app.features.dadjoke.DadJokeDetailState]
-         */
+    private fun setupBackgroundImage(tvShow: TvShow) {
+        GlideApp.with(this)
+                .asBitmap()
+                .load("${TMDBBaseApiClient.tmdbImageBaseUrl}/${TMDBBaseApiClient.posterSizes[TMDBBaseApiClient.Companion.ImageSize.LARGE.toString()]}/${tvShow.backdropPath}")
+                .placeholder(R.color.black)
+                .into(backgroundImageView)
+    }
+
+    private fun setupHeader(tvShow: TvShow) {
+        yearTextView.text = android.text.format.DateFormat.format("yyyy", tvShow.firstAirDate)
+        nameTextView.text = tvShow.name
+        if (tvShow.genres != null) {
+            val genreString = tvShow.genres!!
+                    .map { genre -> genre.name }
+                    .joinToString(separator = "/ ") { s: String -> s.toUpperCase() }
+            genresTextView.text = genreString
+        }
+        ratingTextView.text = tvShow.voteAverage.toString()
+        voteCountTextView.text = tvShow.voteCount.toString()
+        ratingView.visibility = View.VISIBLE
+        progressBar.visibility = View.GONE
+    }
+
+    private fun navigateTo(@IdRes actionId: Int, arg: Parcelable? = null) {
         val bundle = arg?.let { Bundle().apply { putParcelable(MvRx.KEY_ARG, it) } }
         findNavController().navigate(actionId, bundle)
     }
 
-    fun epoxyController() = simpleController(viewModel) { state ->
+    private fun epoxyController() = simpleController(viewModel) { state ->
         val tvShow = state.tvShow
         if (tvShow == null) {
             loadingRow {
-                // Changing the ID will force it to rebind when new data is loaded even if it is
-                // still on screen which will ensure that we trigger loading again.
                 id("loading")
             }
             return@simpleController
         }
-        marquee {
-            id("marquee")
-            title(tvShow.name)
+
+        cardTitle {
+            id("${tvShow.id}-about-title")
+            title("About:")
+            itemType(ItemType.TOP)
         }
 
-        basicRow {
-            id(tvShow.id)
-            title(tvShow.originalName)
-            subtitle(tvShow.overview)
-            clickListener { _ -> }
+        cardText {
+            id("${tvShow.id}-about-text")
+            text(tvShow.overview)
+            itemType(ItemType.NORMAL)
+        }
+        cardSpace {
+            id("about-space")
+            itemType(ItemType.NORMAL)
         }
 
         val similarTvShowsResponse = state.similarTvShowsResponse
         if (similarTvShowsResponse == null) {
-            loadingRow {
-                id("loading")
+            cardLoading {
+                id("${tvShow.id}-loading")
+                itemType(ItemType.BOTTOM)
             }
             return@simpleController
         }
-        pullToRefreshLayout.isRefreshing = false
-
         val similarTvShows = similarTvShowsResponse.results
         val carouselModels: MutableList<EpoxyModel<*>> = mutableListOf()
 
         for (similarShow in similarTvShows) {
             carouselModels.add(TvItemCompactModel_()
-                    .id(similarShow.id)
+                    .id("${tvShow.id}-similarshow-${similarShow.id}")
                     .title(similarShow.name)
                     .rating(similarShow.voteAverage.toString())
                     .voteCount(similarShow.voteCount.toString())
                     .posterImageUrl("${TMDBBaseApiClient.tmdbImageBaseUrl}/${TMDBBaseApiClient.posterSizes[TMDBBaseApiClient.Companion.ImageSize.SMALL.toString()]}/${similarShow.posterPath}")
-                    .clickListener { _ -> })
+                    .clickListener { _ -> navigateTo(R.id.action_detailFragment_to_detailFragment, DetailStateArgs(similarShow.id)) })
         }
         if (similarTvShowsResponse.page < similarTvShowsResponse.totalPages) {
             carouselModels.add(
                     LoadingRowModel_()
-                            .id("load-more-similar-shows")
+                            .id("${tvShow.id}-load-more-similar-shows")
                             .onBind { _, _, _ -> viewModel.fetchNextSimilarTvShows() })
         }
 
-        carousel {
-            id("shifts-carousel")
+        cardTitle {
+            id("${tvShow.id}-similar_shows-title")
+            title("Similar TV Shows:")
+            itemType(ItemType.NORMAL)
+        }
+
+        cardCarousel {
+            id("${tvShow.id}-similar_shows-item")
+            itemType(ItemType.BOTTOM)
+            carouselId("${tvShow.id}-similar_shows-carousel")
             models(carouselModels)
             numViewsToShowOnScreen(1.5f)
         }

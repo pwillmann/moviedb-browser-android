@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@+id/start"
+        motion:duration="250"
+        motion:interpolator="linear">
+
+        <OnSwipe
+            motion:dragDirection="dragUp"
+            motion:touchAnchorId="@+id/headerLayout"
+            motion:touchAnchorSide="bottom" />
+
+        <KeyFrameSet>
+            <KeyPosition
+                motion:keyPositionType="pathRelative"
+                motion:percentX="0"
+                motion:percentY="0"
+                motion:framePosition="10"
+                motion:transitionEasing="decelerate"
+                motion:target="@id/recycler_view"/>
+
+            <KeyPosition
+                motion:keyPositionType="pathRelative"
+                motion:percentX="0.1"
+                motion:percentY="0"
+                motion:framePosition="10"
+                motion:transitionEasing="decelerate"
+                motion:target="@id/headerLayout"/>
+            <KeyPosition
+                motion:keyPositionType="pathRelative"
+                motion:percentX="0"
+                motion:percentY="0"
+                motion:framePosition="40"
+                motion:transitionEasing="decelerate"
+                motion:target="@id/ratingView"/>
+            <KeyPosition
+                motion:keyPositionType="pathRelative"
+                motion:percentX="0"
+                motion:percentY="0"
+                motion:framePosition="40"
+                motion:transitionEasing="decelerate"
+                motion:target="@id/voteCount"/>
+        </KeyFrameSet>
+
+        <ConstraintSet android:id="@+id/start">
+            <Constraint
+                android:id="@+id/backgroundOverlay"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/grey_transparent"
+                android:alpha="0.0"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent" />
+            <Constraint
+                android:id="@+id/ratingView"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="@dimen/res_margin_double"
+                android:layout_marginStart="@dimen/res_margin_double"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent" />
+
+            <Constraint
+                android:id="@+id/voteCount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/res_margin_single"
+                android:alpha="0.0"
+                android:gravity="center"
+                motion:layout_constraintEnd_toEndOf="@+id/ratingView"
+                motion:layout_constraintStart_toStartOf="@+id/ratingView"
+                motion:layout_constraintTop_toBottomOf="@+id/ratingView"/>
+
+            <Constraint
+                android:id="@+id/headerLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:paddingStart="@dimen/res_margin_double"
+                android:paddingEnd="@dimen/res_margin_double"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent" />
+
+            <Constraint
+                android:id="@+id/recycler_view"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:paddingTop="@dimen/res_margin_single"
+                android:paddingBottom="@dimen/res_margin_single"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toBottomOf="@+id/headerLayout" />
+        </ConstraintSet>
+
+        <ConstraintSet android:id="@+id/end">
+            <Constraint
+                android:id="@+id/backgroundOverlay"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/grey_transparent"
+                android:alpha="1.0"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toTopOf="parent" />
+            <Constraint
+                android:id="@+id/ratingView"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="@dimen/res_margin_double"
+                android:layout_marginEnd="@dimen/res_margin_double"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintTop_toTopOf="parent" />
+
+            <Constraint
+                android:id="@+id/voteCount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/res_margin_single"
+                android:alpha="1.0"
+                android:gravity="center"
+                motion:layout_constraintEnd_toEndOf="@+id/ratingView"
+                motion:layout_constraintStart_toStartOf="@+id/ratingView"
+                motion:layout_constraintTop_toBottomOf="@+id/ratingView"/>
+
+            <Constraint
+                android:id="@+id/headerLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/res_margin_double"
+                android:paddingEnd="@dimen/res_margin_double"
+                motion:layout_constraintTop_toTopOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"/>
+
+            <Constraint
+                android:id="@+id/recycler_view"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:paddingTop="@dimen/res_margin_single"
+                android:paddingBottom="@dimen/res_margin_single"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintTop_toBottomOf="@+id/headerLayout" />
+        </ConstraintSet>
+    </Transition>
+
+</MotionScene>

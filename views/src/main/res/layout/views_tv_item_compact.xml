@@ -8,9 +8,11 @@
     android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp"
     android:minWidth="200dp"
+    app:cardBackgroundColor="@color/gunmetal"
     tools:layout_width="200dp"
     app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    app:cardElevation="4dp"
+    tools:background="@color/gunmetal">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -33,7 +35,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:textColor="@color/gunmetal"
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
             android:maxLines="1"
@@ -61,7 +63,7 @@
             android:layout_marginStart="4dp"
             android:ellipsize="end"
             android:gravity="top|start"
-            android:textColor="@color/gunmetal"
+            android:textColor="@color/white"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/ratingIcon"
@@ -76,7 +78,7 @@
             android:layout_marginStart="4dp"
             android:ellipsize="end"
             android:gravity="top|start"
-            android:textColor="@color/steel"
+            android:textColor="@color/steel_light"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBaseline_toBaselineOf="@id/rating"
