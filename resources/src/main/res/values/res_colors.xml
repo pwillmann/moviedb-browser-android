@@ -3,27 +3,13 @@
     <!-- base colors -->
     <color name="black">#000000</color>
     <color name="grey_transparent">#91000000</color>
-    <color name="grey_disabled">#4DFFFFFF</color>
-    <color name="grey">#9B9B9B</color>
     <color name="grey_light">#EBEBEB</color>
     <color name="grey_lightest">#F8F8F8</color>
     <color name="white">#FFFFFF</color>
-    <color name="white_transparent">#BEFFFFFF</color>
 
-    <color name="prince">#C11AFF</color>
-    <color name="purple_pink">#E132E7</color>
-    <color name="purple">#70209D</color>
-    <color name="dark_blue">#0E0056</color>
-    <color name="blue_purple">#6700FF</color>
-    <color name="blues">#366AD2</color>
-    <color name="azure">#16AFED</color>
-    <color name="true_blue">#0005C3</color>
     <color name="flamingo">#FD567E</color>
-    <color name="warm_pink">#FD528B</color>
-    <color name="pumpkin_orange">#FF8000</color>
     <color name="gunmetal">#4E515C</color>
     <color name="steel">#868B99</color>
-    <color name="steel_translucent">#59868B99</color>
     <color name="steel_light">#E1E2E5</color>
 
     <color name="yellow">#FFDC00</color>

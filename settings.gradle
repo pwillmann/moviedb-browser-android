@@ -1,1 +1,1 @@
-include ':app', ':core', ':views', ':models', ':network', ':resources', 'features:helloworld', 'features:browser', 'features:detail', 'features:dadjoke', 'features:flow'
+include ':app', ':core', 'features:browser', 'features:detail', ':models', ':network', ':resources', ':views'
