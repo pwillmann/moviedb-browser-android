@@ -24,9 +24,6 @@ androidExtensions {
 
 dependencies {
     implementation project(':core')
-    implementation project(':features:helloworld')
-    implementation project(':features:flow')
-    implementation project(':features:dadjoke')
     implementation project(':features:browser')
     implementation project(':models')
     implementation project(':network')

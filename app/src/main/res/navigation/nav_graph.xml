@@ -2,49 +2,6 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_graph"
-    app:startDestination="@id/main">
-    <include app:graph="@navigation/flow_nav_graph" />
-    <include app:graph="@navigation/dadjoke_nav_graph" />
+    app:startDestination="@+id/browser_nav_graph">
     <include app:graph="@navigation/browser_nav_graph" />
-    <fragment
-        android:id="@+id/main"
-        android:name="com.pwillmann.moviediscovery.app.MainFragment">
-        <action
-            android:id="@+id/action_mainFragment_to_dadJokeIndex"
-            app:destination="@id/dadjoke_nav_graph"
-            app:enterAnim="@anim/res_anim_enter"
-            app:exitAnim="@anim/res_anim_exit"
-            app:popEnterAnim="@anim/res_anim_pop_enter"
-            app:popExitAnim="@anim/res_anim_pop_exit"/>
-        <action
-            android:id="@+id/action_main_to_flowIntroFragment"
-            app:destination="@id/flow_nav_graph"
-            app:enterAnim="@anim/res_anim_enter"
-            app:exitAnim="@anim/res_anim_exit"
-            app:popEnterAnim="@anim/res_anim_pop_enter"
-            app:popExitAnim="@anim/res_anim_pop_exit"/>
-        <action
-            android:id="@+id/action_main_to_helloWorldEpoxyFragment"
-            app:destination="@id/helloWorldEpoxyFragment"
-            app:enterAnim="@anim/res_anim_enter"
-            app:exitAnim="@anim/res_anim_exit"
-            app:popEnterAnim="@anim/res_anim_pop_enter"
-            app:popExitAnim="@anim/res_anim_pop_exit"/>
-        <action
-            android:id="@+id/action_main_to_browserFragment"
-            app:destination="@id/browser_nav_graph"
-            app:enterAnim="@anim/res_anim_enter"
-            app:exitAnim="@anim/res_anim_exit"
-            app:popEnterAnim="@anim/res_anim_pop_enter"
-            app:popExitAnim="@anim/res_anim_pop_exit"/>
-    </fragment>
-
-
-    <fragment
-        android:id="@+id/helloWorldEpoxyFragment"
-        android:name="com.pwillmann.moviediscovery.features.helloworld.HelloWorldEpoxyFragment"/>
-
-    <fragment
-        android:id="@+id/browserFragment"
-        android:name="com.pwillmann.moviediscovery.features.browser.BrowserFragment"/>
 </navigation>

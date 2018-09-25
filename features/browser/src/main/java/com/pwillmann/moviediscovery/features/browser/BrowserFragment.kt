@@ -123,7 +123,7 @@ class BrowserFragment : BaseMvRxFragment() {
         loadingRow {
             // Changing the ID will force it to rebind when new data is loaded even if it is
             // still on screen which will ensure that we trigger loading again.
-            id("loading${state.tvShowsResponse?.page ?: 1}")
+            id("loading${state.tvShowsResponse.page}")
             onBind { _, _, _ -> viewModel.fetchNextPage() }
         }
     }
