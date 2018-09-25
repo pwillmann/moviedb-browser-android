@@ -52,6 +52,6 @@ dependencies {
     kapt "com.github.bumptech.glide:compiler:$glideVersion"
 
     implementation 'jp.wasabeef:glide-transformations:3.3.0'
-    implementation 'jp.wasabeef:blurry:2.1.1'
+
 
 }

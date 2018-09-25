@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ratingView"
+    android:layout_width="48dp"
+    android:layout_height="48dp"
+    android:background="@drawable/res_background_round"
+    tools:layout_width="48dp"
+    tools:layout_height="48dp">
+
+    <ImageView
+        android:id="@+id/ratingIcon"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:tint="@color/yellow"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rating"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/res_vec_ic_star" />
+
+    <TextView
+        android:id="@+id/rating"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:ellipsize="end"
+        android:gravity="top|start"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/ratingIcon"
+        app:layout_constraintStart_toEndOf="@+id/ratingIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ratingIcon"
+        tools:text="6.8" />
+
+</android.support.constraint.ConstraintLayout>

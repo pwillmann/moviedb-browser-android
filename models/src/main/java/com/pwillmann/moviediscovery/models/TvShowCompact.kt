@@ -6,7 +6,7 @@ import java.util.Date
 data class TvShowCompact(
     val popularity: Double?,
     val id: Long,
-    val overview: String,
+    val overview: String?,
     val name: String,
     @Json(name = "poster_path") val posterPath: String?,
     @Json(name = "backdrop_path") val backdropPath: String?,

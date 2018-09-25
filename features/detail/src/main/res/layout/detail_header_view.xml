@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.motion.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/headerLayout"
@@ -7,9 +7,6 @@
     android:layout_height="wrap_content"
     android:paddingStart="@dimen/res_margin_double"
     android:paddingEnd="@dimen/res_margin_double"
-    app:applyMotionScene="false"
-    app:layoutDescription="@xml/detail_scene_header"
-    app:showPaths="false"
     tools:background="@color/gunmetal">
 
     <android.support.constraint.Placeholder
@@ -20,19 +17,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:background="@color/flamingo" />
-
-    <TextView
-        android:id="@+id/ratingCount"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/res_margin_single"
-        android:textColor="@color/grey_lightest"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/ratingPlaceholder"
-        app:layout_constraintStart_toStartOf="@+id/ratingPlaceholder"
-        app:layout_constraintTop_toBottomOf="@+id/ratingPlaceholder"
-        tools:text="125.187" />
-
 
     <TextView
         android:id="@+id/year"
@@ -85,4 +69,4 @@
         tools:text="Action/ Adventure" />
 
 
-</android.support.constraint.motion.MotionLayout>
+</android.support.constraint.ConstraintLayout>
