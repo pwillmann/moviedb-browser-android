@@ -1,7 +1,7 @@
 package com.pwillmann.moviediscovery.views
 
 import android.content.Context
-import android.support.design.button.MaterialButton
+import com.google.android.material.button.MaterialButton
 import android.util.AttributeSet
 import android.widget.ImageView
 import android.widget.LinearLayout

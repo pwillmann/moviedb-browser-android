@@ -32,15 +32,15 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
 
-    implementation("com.android.support:appcompat-v7:$supportLibVersion") {
+    implementation("androidx.appcompat:appcompat:$supportLibVersion") {
         exclude group: 'android.arch.lifecycle'
     }
-    implementation "com.android.support:design:$supportLibVersion"
-    implementation("com.android.support:recyclerview-v7:$supportLibVersion") {
+    implementation "com.google.android.material:material:$supportLibVersion"
+    implementation("androidx.recyclerview:recyclerview:$supportLibVersion") {
         exclude group: 'android.arch.lifecycle'
     }
-    implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
-    implementation "android.arch.lifecycle:extensions:$lifecycleVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
     implementation "android.arch.navigation:navigation-fragment-ktx:$navVersion"
     implementation "android.arch.navigation:navigation-ui-ktx:$navVersion"
 

@@ -2,9 +2,9 @@ package com.pwillmann.moviediscovery.features.detail
 
 import android.os.Bundle
 import android.os.Parcelable
-import android.support.annotation.IdRes
-import android.support.constraint.ConstraintLayout
-import android.support.design.widget.Snackbar
+import androidx.annotation.IdRes
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.snackbar.Snackbar
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View

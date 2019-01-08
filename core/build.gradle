@@ -14,8 +14,8 @@ android {
 
 dependencies {
     implementation project(':resources')
-    implementation("com.android.support:appcompat-v7:$supportLibVersion") { exclude group: 'android.arch.lifecycle' }
-    implementation "com.android.support:design:$supportLibVersion"
+    implementation("androidx.appcompat:appcompat:$supportLibVersion") { exclude group: 'android.arch.lifecycle' }
+    implementation "com.google.android.material:material:$supportLibVersion"
     implementation "android.arch.navigation:navigation-fragment-ktx:$navVersion"
     implementation "android.arch.navigation:navigation-ui-ktx:$navVersion"
     implementation "com.airbnb.android:mvrx:$mvRxVersion"

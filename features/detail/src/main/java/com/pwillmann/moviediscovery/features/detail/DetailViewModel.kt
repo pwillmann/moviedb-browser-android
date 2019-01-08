@@ -2,7 +2,7 @@ package com.pwillmann.moviediscovery.features.detail
 
 import android.annotation.SuppressLint
 import android.os.Parcelable
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.FragmentActivity
 import com.airbnb.mvrx.Async
 import com.airbnb.mvrx.BaseMvRxViewModel
 import com.airbnb.mvrx.Loading

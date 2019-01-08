@@ -1,7 +1,7 @@
 package com.pwillmann.moviediscovery.views.card
 
 import android.content.Context
-import android.support.constraint.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import android.util.AttributeSet
 import android.widget.TextView
 import com.airbnb.epoxy.AfterPropsSet
