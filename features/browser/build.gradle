@@ -45,6 +45,6 @@ dependencies {
 
 
 
-    implementation "org.koin:koin-android-architecture:$koinVersion"
+    implementation "org.koin:koin-android-viewmodel:$koinVersion"
 
 }
