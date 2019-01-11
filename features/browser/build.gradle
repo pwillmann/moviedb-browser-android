@@ -1,3 +1,5 @@
+import com.pwillmann.moviediscovery.Config
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -19,32 +21,32 @@ androidExtensions {
 
 
 dependencies {
-    implementation project(':core')
-    implementation project(':models')
-    implementation project(':network')
-    implementation project(':features:detail')
-    implementation project(':resources')
-    implementation project(':views')
+    implementation(project(':core'))
+    implementation(project(':models'))
+    implementation(project(':network'))
+    implementation(project(':features:detail'))
+    implementation(project(':resources'))
+    implementation(project(':views'))
 
-    implementation("androidx.appcompat:appcompat:$supportLibVersion") { exclude group: 'android.arch.lifecycle' }
-    implementation "com.google.android.material:material:$supportLibVersion"
-    implementation("androidx.recyclerview:recyclerview:$supportLibVersion") { exclude group: 'android.arch.lifecycle' }
-    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
-    implementation "android.arch.navigation:navigation-fragment-ktx:$navVersion"
-    implementation "android.arch.navigation:navigation-ui-ktx:$navVersion"
+    implementation(Config.Libs.androidx_appcompat) { exclude group: 'android.arch.lifecycle' }
+    implementation(Config.Libs.material_design_components)
+    implementation(Config.Libs.androidx_recyclerview) { exclude group: 'android.arch.lifecycle' }
+    implementation(Config.Libs.androidx_constraintlayout)
+    implementation(Config.Libs.androidx_lifecycle_extensions)
+    implementation(Config.Libs.androidx_navigation_fragment_ktx)
+    implementation(Config.Libs.androidx_navigation_ui_ktx)
 
-    implementation ("com.github.bumptech.glide:glide:$glideVersion") {
+    implementation(Config.Libs.glide) {
         exclude group: "com.android.support"
     }
 
 
-    implementation "com.airbnb.android:mvrx:$mvRxVersion"
-    implementation("com.airbnb.android:epoxy:$epoxyVersion") { exclude group: 'com.android.support' }
-    kapt "com.airbnb.android:epoxy-processor:$epoxyVersion"
+    implementation(Config.Libs.mvrx)
+    implementation(Config.Libs.epoxy) { exclude group: 'com.android.support' }
+    kapt(Config.Libs.epoxy_processor)
 
 
 
-    implementation "org.koin:koin-android-viewmodel:$koinVersion"
+    implementation(Config.Libs.koin_android_viewmodel)
 
 }

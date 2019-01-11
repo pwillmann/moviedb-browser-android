@@ -28,11 +28,11 @@ dependencies {
 
     implementation(Config.Libs.rxJava)
 
-    implementation(Config.Libs.retrofit_core)
+    implementation(Config.Libs.retrofit)
     implementation(Config.Libs.retrofit_rxjava)
     implementation(Config.Libs.retrofit_moshi)
 
-    implementation(Config.Libs.moshi_core)
+    implementation(Config.Libs.moshi)
     implementation(Config.Libs.moshi_kotlin)
     kapt(Config.Libs.moshi_processor)
 }

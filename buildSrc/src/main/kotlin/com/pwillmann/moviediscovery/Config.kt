@@ -66,14 +66,14 @@ object Config {
 
         // AirBnBs MvRx + Epoxy
         val mvrx = "com.airbnb.android:mvrx:${Versions.mvrx}"
-        val epoxy_core = "com.airbnb.android:epoxy:${Versions.epoxy}"
+        val epoxy = "com.airbnb.android:epoxy:${Versions.epoxy}"
         val epoxy_processor = "com.airbnb.android:epoxy-processor:${Versions.epoxy}"
 
         // Retrofit, Moshi
-        val retrofit_core = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+        val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
         val retrofit_moshi = "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
         val retrofit_rxjava = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit}"
-        val moshi_core = "com.squareup.moshi:moshi:${Versions.moshi}"
+        val moshi = "com.squareup.moshi:moshi:${Versions.moshi}"
         val moshi_kotlin = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"
         val moshi_adapters = "com.squareup.moshi:moshi-adapters:${Versions.moshi}"
         val moshi_processor = "com.squareup.moshi:moshi-kotlin-codegen:${Versions.moshi}"
@@ -84,9 +84,9 @@ object Config {
         val rxbinding = "com.jakewharton.rxbinding3:rxbinding:${Versions.rxBinding}"
 
         // Dagger
-        val dagger_core = "com.google.dagger:dagger:${Versions.dagger}"
+        val dagger = "com.google.dagger:dagger:${Versions.dagger}"
         val dagger_processor = "com.google.dagger:dagger-compiler:${Versions.dagger}"
-        val assistedinject_core = "com.squareup.inject:assisted-inject-annotations-dagger2:${Versions.assistedinject}"
+        val assistedinject = "com.squareup.inject:assisted-inject-annotations-dagger2:${Versions.assistedinject}"
         val assistedinject_processor = "com.squareup.inject:assisted-inject-processor-dagger2:${Versions.assistedinject}"
 
         // Koin
