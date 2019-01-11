@@ -1,8 +1,8 @@
 package com.pwillmann.moviediscovery.app
 
 import android.app.Application
-import com.pwillmann.moviediscovery.network.TvShowsService
-import com.pwillmann.moviediscovery.network.TMDBBaseApiClient
+import com.pwillmann.moviediscovery.service.remote.TvShowsService
+import com.pwillmann.moviediscovery.service.remote.TMDBBaseApiClient
 import org.koin.android.ext.android.startKoin
 import org.koin.dsl.module.Module
 import org.koin.dsl.module.applicationContext

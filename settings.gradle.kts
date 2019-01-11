@@ -1,10 +1,10 @@
 include(
-        ":app", "" +
+        ":app",
         ":core",
-        "features:browser",
-        "features:detail",
-        ":models",
-        ":network",
-        ":resources",
-        ":views"
+        "feature:browser",
+        "feature:detail",
+        ":model",
+        ":resource",
+        ":service:remote",
+        ":view"
 )
