@@ -6,17 +6,8 @@ plugins {
     kotlin("kapt")
 }
 
-android {
-    compileSdkVersion(Config.Android.compileSdk)
-    defaultConfig {
-        minSdkVersion(Config.Android.minSdk)
-        targetSdkVersion(Config.Android.targetSdk)
-    }
-    lintOptions.setLintConfig(rootProject.file("lint.xml"))
-}
-
 dependencies {
-    implementation(project(":resources"))
+    implementation(project(":resource"))
     implementation(Config.Libs.androidx_appcompat)
     implementation(Config.Libs.material_design_components)
     implementation(Config.Libs.androidx_navigation_fragment_ktx)
