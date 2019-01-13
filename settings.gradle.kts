@@ -1,8 +1,8 @@
 include(
         ":app",
         ":core",
-        "feature:browser",
-        "feature:detail",
+        ":feature:browser",
+        ":feature:detail",
         ":model",
         ":resource",
         ":service:remote",

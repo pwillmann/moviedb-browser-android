@@ -26,7 +26,7 @@ object Config {
 
         // AirBnB
         val epoxy = "3.0.0"
-        val mvrx = "0.6.0"
+        val mvrx = "0.7.0"
 
         // ReactiveX
         val rxJava = "2.2.5"
