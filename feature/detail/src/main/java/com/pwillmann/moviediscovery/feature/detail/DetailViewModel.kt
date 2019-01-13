@@ -2,14 +2,13 @@ package com.pwillmann.moviediscovery.feature.detail
 
 import android.annotation.SuppressLint
 import android.os.Parcelable
-import androidx.fragment.app.FragmentActivity
 import com.airbnb.mvrx.Async
-import com.airbnb.mvrx.BaseMvRxViewModel
 import com.airbnb.mvrx.Loading
 import com.airbnb.mvrx.MvRxState
 import com.airbnb.mvrx.MvRxViewModelFactory
 import com.airbnb.mvrx.PersistState
 import com.airbnb.mvrx.Uninitialized
+import com.airbnb.mvrx.ViewModelContext
 import com.pwillmann.moviediscovery.core.MvRxViewModel
 import com.pwillmann.moviediscovery.model.PaginatedListResponse
 import com.pwillmann.moviediscovery.model.TvShow
@@ -91,10 +90,9 @@ class DetailViewModel(
      *
      * @see MvRxViewModelFactory
      */
-    companion object : MvRxViewModelFactory<DetailState> {
-        @JvmStatic
-        override fun create(activity: FragmentActivity, state: DetailState): BaseMvRxViewModel<DetailState> {
-            val service: TvShowsService by activity.inject()
+    companion object : MvRxViewModelFactory<DetailViewModel, DetailState> {
+        override fun create(viewModelContext: ViewModelContext, state: DetailState): DetailViewModel {
+            val service: TvShowsService by viewModelContext.activity.inject()
             return DetailViewModel(state, service)
         }
     }

@@ -1,13 +1,12 @@
 package com.pwillmann.moviediscovery.feature.browser
 
-import androidx.fragment.app.FragmentActivity
 import com.airbnb.mvrx.Async
-import com.airbnb.mvrx.BaseMvRxViewModel
 import com.airbnb.mvrx.Loading
 import com.airbnb.mvrx.MvRxState
 import com.airbnb.mvrx.MvRxViewModelFactory
 import com.airbnb.mvrx.Success
 import com.airbnb.mvrx.Uninitialized
+import com.airbnb.mvrx.ViewModelContext
 import com.pwillmann.moviediscovery.core.MvRxViewModel
 import com.pwillmann.moviediscovery.model.PaginatedListResponse
 import com.pwillmann.moviediscovery.model.TvShowCompact
@@ -65,10 +64,9 @@ class BrowserViewModel(
      *
      * @see MvRxViewModelFactory
      */
-    companion object : MvRxViewModelFactory<BrowserState> {
-        @JvmStatic
-        override fun create(activity: FragmentActivity, state: BrowserState): BaseMvRxViewModel<BrowserState> {
-            val service: TvShowsService by activity.inject()
+    companion object : MvRxViewModelFactory<BrowserViewModel, BrowserState> {
+        override fun create(viewModelContext: ViewModelContext, state: BrowserState): BrowserViewModel {
+            val service: TvShowsService by viewModelContext.activity.inject()
             return BrowserViewModel(state, service)
         }
     }
