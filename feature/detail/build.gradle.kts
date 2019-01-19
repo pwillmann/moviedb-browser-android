@@ -35,4 +35,11 @@ dependencies {
     implementation(Config.Libs.glide) { exclude(group = "com.android.support") }
     kapt(Config.Libs.glide_processor)
     implementation(Config.Libs.glide_transformations)
+
+    // Dagger
+    implementation(Config.Libs.dagger)
+    kapt(Config.Libs.dagger_processor)
+    implementation(Config.Libs.dagger_android)
+    implementation(Config.Libs.dagger_android_support)
+    kapt(Config.Libs.dagger_android_processor)
 }

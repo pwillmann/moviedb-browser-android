@@ -1,5 +1,6 @@
 package com.pwillmann.moviediscovery.feature.browser
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
 import androidx.annotation.IdRes
@@ -10,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.airbnb.mvrx.BaseMvRxFragment
@@ -22,6 +24,8 @@ import com.pwillmann.moviediscovery.service.remote.TMDBBaseApiClient.Companion.t
 import com.pwillmann.moviediscovery.view.loadingRow
 import com.pwillmann.moviediscovery.view.titleRow
 import com.pwillmann.moviediscovery.view.tvItem
+import dagger.android.support.AndroidSupportInjection
+import javax.inject.Inject
 
 private const val TAG = "BrowserFragment"
 
@@ -32,6 +36,14 @@ class BrowserFragment : BaseMvRxFragment() {
 
     private val epoxyController by lazy { epoxyController() }
     private val viewModel: BrowserViewModel by fragmentViewModel()
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

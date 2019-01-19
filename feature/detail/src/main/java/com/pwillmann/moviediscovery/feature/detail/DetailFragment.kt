@@ -1,5 +1,6 @@
 package com.pwillmann.moviediscovery.feature.detail
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
 import androidx.annotation.IdRes
@@ -12,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.EpoxyRecyclerView
@@ -31,6 +33,8 @@ import com.pwillmann.moviediscovery.view.card.cardSpace
 import com.pwillmann.moviediscovery.view.card.cardText
 import com.pwillmann.moviediscovery.view.card.cardTitle
 import com.pwillmann.moviediscovery.view.loadingRow
+import dagger.android.support.AndroidSupportInjection
+import javax.inject.Inject
 
 private const val TAG = "BrowserFragment"
 
@@ -49,11 +53,20 @@ class DetailFragment : BaseMvRxFragment() {
 
     private val epoxyController by lazy { epoxyController() }
     private val viewModel: DetailViewModel by fragmentViewModel()
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
     var errorSnackbar: Snackbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        epoxyController.onRestoreInstanceState(savedInstanceState)
+    }
+
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
     }
 
     override fun onCreateView(

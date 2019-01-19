@@ -16,7 +16,6 @@ object Config {
         val material = "1.1.0-alpha02"
 
         // DI
-        val assistedinject = "0.3.2"
         val dagger = "2.19"
         val koin = "1.0.2"
 
@@ -26,7 +25,7 @@ object Config {
 
         // AirBnB
         val epoxy = "3.0.0"
-        val mvrx = "0.7.0"
+        val mvrx = "0.7.2"
 
         // ReactiveX
         val rxJava = "2.2.5"
@@ -86,8 +85,9 @@ object Config {
         // Dagger
         val dagger = "com.google.dagger:dagger:${Versions.dagger}"
         val dagger_processor = "com.google.dagger:dagger-compiler:${Versions.dagger}"
-        val assistedinject = "com.squareup.inject:assisted-inject-annotations-dagger2:${Versions.assistedinject}"
-        val assistedinject_processor = "com.squareup.inject:assisted-inject-processor-dagger2:${Versions.assistedinject}"
+        val dagger_android = "com.google.dagger:dagger-android:${Versions.dagger}"
+        val dagger_android_support = "com.google.dagger:dagger-android-support:${Versions.dagger}"
+        val dagger_android_processor = "com.google.dagger:dagger-android-processor:${Versions.dagger}"
 
         // Koin
         val koin_android_viewmodel = "org.koin:koin-android-viewmodel:${Versions.koin}"

@@ -34,4 +34,11 @@ dependencies {
     implementation(Config.Libs.moshi)
     implementation(Config.Libs.moshi_kotlin)
     kapt(Config.Libs.moshi_processor)
+
+    // Dagger
+    implementation(Config.Libs.dagger)
+    kapt(Config.Libs.dagger_processor)
+    implementation(Config.Libs.dagger_android)
+    implementation(Config.Libs.dagger_android_support)
+    kapt(Config.Libs.dagger_android_processor)
 }

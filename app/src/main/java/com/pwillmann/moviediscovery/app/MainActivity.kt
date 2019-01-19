@@ -2,6 +2,7 @@ package com.pwillmann.moviediscovery.app
 
 import android.os.Bundle
 import com.airbnb.mvrx.BaseMvRxActivity
+import dagger.android.AndroidInjection
 
 /**
  * Extend this class to get MvRx support out of the box.
@@ -19,6 +20,7 @@ import com.airbnb.mvrx.BaseMvRxActivity
  */
 class MainActivity : BaseMvRxActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }

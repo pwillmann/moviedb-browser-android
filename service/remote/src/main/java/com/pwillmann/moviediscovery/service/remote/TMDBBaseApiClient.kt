@@ -1,20 +1,12 @@
 package com.pwillmann.moviediscovery.service.remote
 
-import android.annotation.SuppressLint
-import com.squareup.moshi.FromJson
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.ToJson
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.text.DateFormat
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.TimeZone
 import java.util.concurrent.TimeUnit
 
 open class TMDBBaseApiClient {
@@ -81,28 +73,5 @@ open class TMDBBaseApiClient {
                 ImageSize.HD.toString() to "w780",
                 ImageSize.ORIGINAL.toString() to "original"
         )
-    }
-}
-
-@SuppressLint("SimpleDateFormat")
-class DateJsonAdapter {
-    private val dateFormat: DateFormat
-
-    init {
-        dateFormat = SimpleDateFormat("yyyy-MM-dd")
-        dateFormat.timeZone = TimeZone.getTimeZone("GMT")
-    }
-
-    @ToJson
-    @Synchronized
-    internal fun dateToJson(d: Date): String {
-        return dateFormat.format(d)
-    }
-
-    @FromJson
-    @Synchronized
-    @Throws(ParseException::class)
-    internal fun dateToJson(s: String): Date {
-        return dateFormat.parse(s)
     }
 }

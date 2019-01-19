@@ -3,6 +3,7 @@ package com.pwillmann.moviediscovery.feature.detail
 import android.annotation.SuppressLint
 import android.os.Parcelable
 import com.airbnb.mvrx.Async
+import com.airbnb.mvrx.FragmentViewModelContext
 import com.airbnb.mvrx.Loading
 import com.airbnb.mvrx.MvRxState
 import com.airbnb.mvrx.MvRxViewModelFactory
@@ -16,7 +17,7 @@ import com.pwillmann.moviediscovery.model.TvShowCompact
 import com.pwillmann.moviediscovery.model.mergeWith
 import com.pwillmann.moviediscovery.service.remote.TvShowsService
 import kotlinx.android.parcel.Parcelize
-import org.koin.android.ext.android.inject
+import javax.inject.Inject
 
 @SuppressLint("ParcelCreator")
 @Parcelize
@@ -28,17 +29,14 @@ data class DetailState(
     val tvShow: TvShow? = null,
     val similarTvShowsRequest: Async<PaginatedListResponse<TvShowCompact>> = Uninitialized,
     val similarTvShowsResponse: PaginatedListResponse<TvShowCompact>? = PaginatedListResponse(0, 0, 0, emptyList())
-) : MvRxState {
-    constructor(args: DetailStateArgs) : this(tvShowId = args.tvShowId)
-}
+) : MvRxState
 
 /**
  * initialState *must* be implemented as a constructor parameter.
  */
-class DetailViewModel(
-    initialState: DetailState,
+class DetailViewModel @Inject constructor(
     private val tvShowsService: TvShowsService
-) : MvRxViewModel<DetailState>(initialState) {
+) : MvRxViewModel<DetailState> (DetailState()) {
 
     init {
         fetchTvShowData()
@@ -92,8 +90,12 @@ class DetailViewModel(
      */
     companion object : MvRxViewModelFactory<DetailViewModel, DetailState> {
         override fun create(viewModelContext: ViewModelContext, state: DetailState): DetailViewModel {
-            val service: TvShowsService by viewModelContext.activity.inject()
-            return DetailViewModel(state, service)
+            return (viewModelContext as FragmentViewModelContext).fragment<DetailFragment>().viewModelFactory.create(DetailViewModel::class.java)
+        }
+
+        override fun initialState(viewModelContext: ViewModelContext): DetailState {
+            val state = DetailState(tvShowId = viewModelContext.args<DetailStateArgs>().tvShowId)
+            return state
         }
     }
 }
