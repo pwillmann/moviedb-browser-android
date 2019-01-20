@@ -5,15 +5,18 @@ package com.pwillmann.moviediscovery
 object Config {
 
     object Versions {
+        // Tooling
         val kotlin = "1.3.11"
-        // AndroidX
+        val timber = "4.7.1"
+        val spotless = "3.16.0"
+
+        // AndroidX / Google
         val appcompat = "1.1.0-alpha01"
         val constraint = "2.0.0-alpha3"
         val navigation = "1.0.0-alpha09"
         val lifecycle = "2.0.0-beta01"
         val ktxCore = "1.1.0-alpha03"
         val recyclerview = "1.1.0-alpha01"
-
         val material = "1.1.0-alpha02"
 
         // DI
@@ -33,9 +36,9 @@ object Config {
         val rxAndroid = "2.1.0"
         val rxBinding = "3.0.0-alpha2"
 
+
         val glide = "4.8.0"
 
-        val spotless = "3.16.0"
     }
 
     object Android {
@@ -48,10 +51,12 @@ object Config {
     }
 
     object Libs {
+        // Tooling
         val kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"
         val kotlin_gradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
         val kotlin_reflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
         val spotless = "com.diffplug.spotless:spotless-plugin-gradle:${Versions.spotless}"
+        val timber = "com.jakewharton.timber:timber:${Versions.timber}"
 
         // AndroidX
         val androidx_core = "androidx.core:core-ktx:${Versions.ktxCore}"
@@ -98,6 +103,7 @@ object Config {
         val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
         val glide_processor = "com.github.bumptech.glide:compiler:${Versions.glide}"
         val glide_transformations = "jp.wasabeef:glide-transformations:3.3.0"
+
 
     }
 

@@ -24,9 +24,9 @@ import com.pwillmann.moviediscovery.service.remote.TMDBBaseApiClient.Companion.t
 import com.pwillmann.moviediscovery.view.loadingRow
 import com.pwillmann.moviediscovery.view.titleRow
 import com.pwillmann.moviediscovery.view.tvItem
+import timber.log.Timber
 import javax.inject.Inject
 
-private const val TAG = "BrowserFragment"
 
 class BrowserFragment : MvRxEpoxyFragment() {
     private val constraintLayout: ConstraintLayout by bindView(R.id.container)
@@ -44,9 +44,9 @@ class BrowserFragment : MvRxEpoxyFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.browser_fragment, container, false)
     }
@@ -67,7 +67,7 @@ class BrowserFragment : MvRxEpoxyFragment() {
             errorSnackbar!!.setAction(R.string.browser_error_retry) { _ -> viewModel.refresh() }
             errorSnackbar!!.show()
 
-            Log.w(TAG, "Tv Shows request failed", error)
+            Timber.w(error, "Tv Shows request failed")
         })
     }
 

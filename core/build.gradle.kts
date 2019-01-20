@@ -9,6 +9,8 @@ plugins {
 dependencies {
     implementation(Config.Libs.kotlin_reflect)
 
+    api(Config.Libs.timber)
+
     implementation(Config.Libs.androidx_appcompat)
     implementation(Config.Libs.material_design_components)
     implementation(Config.Libs.androidx_navigation_fragment_ktx)
