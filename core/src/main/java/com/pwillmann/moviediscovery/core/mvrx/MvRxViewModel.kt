@@ -1,4 +1,4 @@
-package com.pwillmann.moviediscovery.core
+package com.pwillmann.moviediscovery.core.mvrx
 
 import com.airbnb.mvrx.BaseMvRxViewModel
 import com.airbnb.mvrx.BuildConfig

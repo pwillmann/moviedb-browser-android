@@ -2,9 +2,6 @@ package com.pwillmann.moviediscovery.feature.detail
 
 import android.os.Bundle
 import android.os.Parcelable
-import androidx.annotation.IdRes
-import androidx.constraintlayout.widget.ConstraintLayout
-import com.google.android.material.snackbar.Snackbar
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,14 +9,18 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.annotation.IdRes
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.fragment.findNavController
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.EpoxyRecyclerView
-import com.airbnb.mvrx.BaseMvRxFragment
 import com.airbnb.mvrx.MvRx
 import com.airbnb.mvrx.fragmentViewModel
+import com.google.android.material.snackbar.Snackbar
 import com.pwillmann.moviediscovery.core.GlideApp
-import com.pwillmann.moviediscovery.core.simpleController
+import com.pwillmann.moviediscovery.core.bindView
+import com.pwillmann.moviediscovery.core.mvrx.MvRxEpoxyFragment
+import com.pwillmann.moviediscovery.core.mvrx.simpleController
 import com.pwillmann.moviediscovery.model.TvShow
 import com.pwillmann.moviediscovery.service.remote.TMDBBaseApiClient
 import com.pwillmann.moviediscovery.view.LoadingRowModel_
@@ -31,57 +32,40 @@ import com.pwillmann.moviediscovery.view.card.cardSpace
 import com.pwillmann.moviediscovery.view.card.cardText
 import com.pwillmann.moviediscovery.view.card.cardTitle
 import com.pwillmann.moviediscovery.view.loadingRow
+import javax.inject.Inject
 
 private const val TAG = "BrowserFragment"
 
-class DetailFragment : BaseMvRxFragment() {
-    private lateinit var constraintLayout: ConstraintLayout
-    private lateinit var recyclerView: EpoxyRecyclerView
-    private lateinit var backgroundImageView: ImageView
-    private lateinit var ratingView: ConstraintLayout
-
-    private lateinit var yearTextView: TextView
-    private lateinit var nameTextView: TextView
-    private lateinit var genresTextView: TextView
-    private lateinit var ratingTextView: TextView
-    private lateinit var voteCountTextView: TextView
-    private lateinit var progressBar: ProgressBar
-
-    private val epoxyController by lazy { epoxyController() }
+class DetailFragment : MvRxEpoxyFragment() {
     private val viewModel: DetailViewModel by fragmentViewModel()
-    var errorSnackbar: Snackbar? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        epoxyController.onRestoreInstanceState(savedInstanceState)
-    }
+    @Inject
+    lateinit var viewModelFactory: DetailViewModel.Factory
+
+    private val constraintLayout: ConstraintLayout by bindView(R.id.container)
+    private val recyclerView: EpoxyRecyclerView by bindView(R.id.recycler_view)
+    private val backgroundImageView: ImageView by bindView(R.id.background)
+    private val ratingView: ConstraintLayout by bindView(R.id.ratingView)
+
+    private val yearTextView: TextView by bindView(R.id.year)
+    private val nameTextView: TextView by bindView(R.id.name)
+    private val genresTextView: TextView by bindView(R.id.genres)
+    private val ratingTextView: TextView by bindView(R.id.rating)
+    private val voteCountTextView: TextView by bindView(R.id.voteCount)
+    private val progressBar: ProgressBar by bindView(R.id.progressbar)
+
+    var errorSnackbar: Snackbar? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.detail_fragment_main, container, false).apply {
-            recyclerView = findViewById(R.id.recycler_view)
-            constraintLayout = findViewById(R.id.container)
-            backgroundImageView = findViewById(R.id.background)
-            yearTextView = findViewById(R.id.year)
-            nameTextView = findViewById(R.id.name)
-            genresTextView = findViewById(R.id.genres)
-            ratingTextView = findViewById(R.id.rating)
-            voteCountTextView = findViewById(R.id.voteCount)
-            progressBar = findViewById(R.id.progressbar)
-            ratingView = findViewById(R.id.ratingView)
-
-            recyclerView.setController(epoxyController)
-        }
-    }
-
-    override fun invalidate() {
-        recyclerView.requestModelBuild()
+        return inflater.inflate(R.layout.detail_fragment_main, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         ratingView.visibility = View.GONE
         progressBar.visibility = View.VISIBLE
 
@@ -102,13 +86,7 @@ class DetailFragment : BaseMvRxFragment() {
         })
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-//        epoxyController.onSaveInstanceState(outState)
-    }
-
     override fun onDestroyView() {
-        epoxyController.cancelPendingModelBuild()
         if (errorSnackbar != null && errorSnackbar!!.isShown) {
             errorSnackbar!!.dismiss()
         }
@@ -143,7 +121,9 @@ class DetailFragment : BaseMvRxFragment() {
         findNavController().navigate(actionId, bundle)
     }
 
-    private fun epoxyController() = simpleController(viewModel) { state ->
+    override fun recyclerView(): EpoxyRecyclerView = recyclerView
+
+    override fun epoxyController() = simpleController(viewModel) { state ->
         val tvShow = state.tvShow
         if (tvShow == null) {
             loadingRow {

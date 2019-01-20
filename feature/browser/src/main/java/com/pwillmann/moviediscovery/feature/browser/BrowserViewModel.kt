@@ -1,28 +1,28 @@
 package com.pwillmann.moviediscovery.feature.browser
 
 import com.airbnb.mvrx.Async
+import com.airbnb.mvrx.FragmentViewModelContext
 import com.airbnb.mvrx.Loading
 import com.airbnb.mvrx.MvRxState
 import com.airbnb.mvrx.MvRxViewModelFactory
 import com.airbnb.mvrx.Success
 import com.airbnb.mvrx.Uninitialized
 import com.airbnb.mvrx.ViewModelContext
-import com.pwillmann.moviediscovery.core.MvRxViewModel
+import com.pwillmann.moviediscovery.core.mvrx.MvRxViewModel
 import com.pwillmann.moviediscovery.model.PaginatedListResponse
 import com.pwillmann.moviediscovery.model.TvShowCompact
 import com.pwillmann.moviediscovery.model.mergeWith
 import com.pwillmann.moviediscovery.service.remote.TvShowsService
-import org.koin.android.ext.android.inject
+import javax.inject.Inject
 
 data class BrowserState(
     val tvShowsResponse: PaginatedListResponse<TvShowCompact>? = PaginatedListResponse(0, 0, 0, emptyList()),
     val request: Async<PaginatedListResponse<TvShowCompact>> = Uninitialized
 ) : MvRxState
 
-class BrowserViewModel(
-    initialState: BrowserState,
+class BrowserViewModel @Inject constructor(
     private val tvShowsService: TvShowsService
-) : MvRxViewModel<BrowserState>(initialState) {
+) : MvRxViewModel<BrowserState>(BrowserState()) {
 
     init {
         fetchNextPage()
@@ -66,8 +66,7 @@ class BrowserViewModel(
      */
     companion object : MvRxViewModelFactory<BrowserViewModel, BrowserState> {
         override fun create(viewModelContext: ViewModelContext, state: BrowserState): BrowserViewModel {
-            val service: TvShowsService by viewModelContext.activity.inject()
-            return BrowserViewModel(state, service)
+            return (viewModelContext as FragmentViewModelContext).fragment<BrowserFragment>().viewModelFactory.create(BrowserViewModel::class.java)
         }
     }
 }

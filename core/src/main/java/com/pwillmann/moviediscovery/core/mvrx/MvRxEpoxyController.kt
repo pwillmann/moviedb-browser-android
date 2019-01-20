@@ -1,4 +1,4 @@
-package com.pwillmann.moviediscovery.core
+package com.pwillmann.moviediscovery.core.mvrx
 
 import com.airbnb.epoxy.AsyncEpoxyController
 import com.airbnb.epoxy.CarouselModelBuilder
