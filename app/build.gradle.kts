@@ -64,7 +64,6 @@ dependencies {
     implementation(Config.Libs.moshi_kotlin)
     kapt(Config.Libs.moshi_processor)
 
-    implementation(Config.Libs.koin_android_viewmodel)
 
     // Dagger
     implementation(Config.Libs.dagger)

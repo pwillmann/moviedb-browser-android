@@ -30,8 +30,6 @@ dependencies {
     implementation(Config.Libs.epoxy) { exclude(group = "com.android.support") }
     kapt(Config.Libs.epoxy_processor)
 
-    implementation(Config.Libs.koin_android_viewmodel)
-
     implementation(Config.Libs.glide) { exclude(group = "com.android.support") }
     kapt(Config.Libs.glide_processor)
     implementation(Config.Libs.glide_transformations)
@@ -42,4 +40,6 @@ dependencies {
     implementation(Config.Libs.dagger_android)
     implementation(Config.Libs.dagger_android_support)
     kapt(Config.Libs.dagger_android_processor)
+    implementation(Config.Libs.assistedinject)
+    kapt(Config.Libs.assistedinject_processor)
 }

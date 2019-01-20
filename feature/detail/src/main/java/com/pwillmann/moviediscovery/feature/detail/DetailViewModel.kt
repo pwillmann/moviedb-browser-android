@@ -10,14 +10,15 @@ import com.airbnb.mvrx.MvRxViewModelFactory
 import com.airbnb.mvrx.PersistState
 import com.airbnb.mvrx.Uninitialized
 import com.airbnb.mvrx.ViewModelContext
-import com.pwillmann.moviediscovery.core.MvRxViewModel
+import com.pwillmann.moviediscovery.core.mvrx.MvRxViewModel
 import com.pwillmann.moviediscovery.model.PaginatedListResponse
 import com.pwillmann.moviediscovery.model.TvShow
 import com.pwillmann.moviediscovery.model.TvShowCompact
 import com.pwillmann.moviediscovery.model.mergeWith
 import com.pwillmann.moviediscovery.service.remote.TvShowsService
+import com.squareup.inject.assisted.Assisted
+import com.squareup.inject.assisted.AssistedInject
 import kotlinx.android.parcel.Parcelize
-import javax.inject.Inject
 
 @SuppressLint("ParcelCreator")
 @Parcelize
@@ -34,9 +35,10 @@ data class DetailState(
 /**
  * initialState *must* be implemented as a constructor parameter.
  */
-class DetailViewModel @Inject constructor(
+class DetailViewModel @AssistedInject constructor(
+    @Assisted initialViewState: DetailState,
     private val tvShowsService: TvShowsService
-) : MvRxViewModel<DetailState> (DetailState()) {
+) : MvRxViewModel<DetailState>(initialViewState) {
 
     init {
         fetchTvShowData()
@@ -90,12 +92,17 @@ class DetailViewModel @Inject constructor(
      */
     companion object : MvRxViewModelFactory<DetailViewModel, DetailState> {
         override fun create(viewModelContext: ViewModelContext, state: DetailState): DetailViewModel {
-            return (viewModelContext as FragmentViewModelContext).fragment<DetailFragment>().viewModelFactory.create(DetailViewModel::class.java)
+            return (viewModelContext as FragmentViewModelContext).fragment<DetailFragment>().viewModelFactory.create(state)
         }
 
         override fun initialState(viewModelContext: ViewModelContext): DetailState {
             val state = DetailState(tvShowId = viewModelContext.args<DetailStateArgs>().tvShowId)
             return state
         }
+    }
+
+    @AssistedInject.Factory
+    interface Factory {
+        fun create(initialViewState: DetailState): DetailViewModel
     }
 }

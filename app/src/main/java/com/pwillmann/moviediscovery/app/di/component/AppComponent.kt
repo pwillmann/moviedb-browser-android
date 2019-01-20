@@ -4,7 +4,7 @@ import com.pwillmann.moviediscovery.app.MvRxApplication
 import com.pwillmann.moviediscovery.app.di.module.ActivityModule
 import com.pwillmann.moviediscovery.app.di.module.ApplicationModule
 import com.pwillmann.moviediscovery.app.di.module.FragmentModule
-import com.pwillmann.moviediscovery.app.di.ViewModelFactoryModule
+import com.pwillmann.moviediscovery.core.di.ViewModelBuilder
 import com.pwillmann.moviediscovery.service.remote.RemoteModule
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -19,7 +19,7 @@ import javax.inject.Singleton
             ApplicationModule::class,
             FragmentModule::class,
             RemoteModule::class,
-            ViewModelFactoryModule::class]
+            ViewModelBuilder::class]
 )
 @Singleton
 interface AppComponent {

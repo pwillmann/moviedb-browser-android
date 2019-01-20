@@ -1,49 +1,42 @@
 package com.pwillmann.moviediscovery.feature.browser
 
-import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
-import androidx.annotation.IdRes
-import androidx.constraintlayout.widget.ConstraintLayout
-import com.google.android.material.snackbar.Snackbar
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.IdRes
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.airbnb.epoxy.EpoxyRecyclerView
-import com.airbnb.mvrx.BaseMvRxFragment
 import com.airbnb.mvrx.MvRx
 import com.airbnb.mvrx.fragmentViewModel
-import com.pwillmann.moviediscovery.core.simpleController
+import com.google.android.material.snackbar.Snackbar
+import com.pwillmann.moviediscovery.core.bindView
+import com.pwillmann.moviediscovery.core.mvrx.MvRxEpoxyFragment
+import com.pwillmann.moviediscovery.core.mvrx.simpleController
 import com.pwillmann.moviediscovery.feature.detail.DetailStateArgs
 import com.pwillmann.moviediscovery.service.remote.TMDBBaseApiClient
 import com.pwillmann.moviediscovery.service.remote.TMDBBaseApiClient.Companion.tmdbImageBaseUrl
 import com.pwillmann.moviediscovery.view.loadingRow
 import com.pwillmann.moviediscovery.view.titleRow
 import com.pwillmann.moviediscovery.view.tvItem
-import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
 private const val TAG = "BrowserFragment"
 
-class BrowserFragment : BaseMvRxFragment() {
-    private lateinit var constraintLayout: ConstraintLayout
-    private lateinit var recyclerView: EpoxyRecyclerView
-    private lateinit var pullToRefreshLayout: SwipeRefreshLayout
+class BrowserFragment : MvRxEpoxyFragment() {
+    private val constraintLayout: ConstraintLayout by bindView(R.id.container)
+    private val recyclerView: EpoxyRecyclerView by bindView(R.id.recycler_view)
+    private val pullToRefreshLayout: SwipeRefreshLayout by bindView(R.id.swiperefresh)
 
-    private val epoxyController by lazy { epoxyController() }
     private val viewModel: BrowserViewModel by fragmentViewModel()
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,20 +48,11 @@ class BrowserFragment : BaseMvRxFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.browser_fragment, container, false).apply {
-            recyclerView = findViewById(R.id.recycler_view)
-            constraintLayout = findViewById(R.id.container)
-            pullToRefreshLayout = findViewById(R.id.swiperefresh)
-
-            recyclerView.setController(epoxyController)
-        }
-    }
-
-    override fun invalidate() {
-        recyclerView.requestModelBuild()
+        return inflater.inflate(R.layout.browser_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         var errorSnackbar: Snackbar? = null
         pullToRefreshLayout.setOnRefreshListener {
             viewModel.refresh()
@@ -93,7 +77,6 @@ class BrowserFragment : BaseMvRxFragment() {
     }
 
     override fun onDestroyView() {
-        epoxyController.cancelPendingModelBuild()
         pullToRefreshLayout.setOnRefreshListener { }
         super.onDestroyView()
     }
@@ -103,7 +86,9 @@ class BrowserFragment : BaseMvRxFragment() {
         findNavController().navigate(actionId, bundle)
     }
 
-    private fun epoxyController() = simpleController(viewModel) { state ->
+    override fun recyclerView(): EpoxyRecyclerView = recyclerView
+
+    override fun epoxyController() = simpleController(viewModel) { state ->
         if (state.tvShowsResponse == null) {
             loadingRow {
                 // Changing the ID will force it to rebind when new data is loaded even if it is

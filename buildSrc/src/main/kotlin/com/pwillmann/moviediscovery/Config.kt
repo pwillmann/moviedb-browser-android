@@ -1,4 +1,5 @@
 @file:Suppress("unused")
+
 package com.pwillmann.moviediscovery
 
 object Config {
@@ -16,8 +17,8 @@ object Config {
         val material = "1.1.0-alpha02"
 
         // DI
+        val assistedinject = "0.3.2"
         val dagger = "2.19"
-        val koin = "1.0.2"
 
         // Networking
         val retrofit = "2.5.0"
@@ -49,6 +50,7 @@ object Config {
     object Libs {
         val kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"
         val kotlin_gradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
+        val kotlin_reflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
         val spotless = "com.diffplug.spotless:spotless-plugin-gradle:${Versions.spotless}"
 
         // AndroidX
@@ -88,9 +90,9 @@ object Config {
         val dagger_android = "com.google.dagger:dagger-android:${Versions.dagger}"
         val dagger_android_support = "com.google.dagger:dagger-android-support:${Versions.dagger}"
         val dagger_android_processor = "com.google.dagger:dagger-android-processor:${Versions.dagger}"
+        val assistedinject = "com.squareup.inject:assisted-inject-annotations-dagger2:${Versions.assistedinject}"
+        val assistedinject_processor = "com.squareup.inject:assisted-inject-processor-dagger2:${Versions.assistedinject}"
 
-        // Koin
-        val koin_android_viewmodel = "org.koin:koin-android-viewmodel:${Versions.koin}"
 
         // Glide
         val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
