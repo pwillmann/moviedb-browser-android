@@ -32,9 +32,9 @@ import com.pwillmann.moviediscovery.view.card.cardSpace
 import com.pwillmann.moviediscovery.view.card.cardText
 import com.pwillmann.moviediscovery.view.card.cardTitle
 import com.pwillmann.moviediscovery.view.loadingRow
+import timber.log.Timber
 import javax.inject.Inject
 
-private const val TAG = "BrowserFragment"
 
 class DetailFragment : MvRxEpoxyFragment() {
     private val viewModel: DetailViewModel by fragmentViewModel()
@@ -57,9 +57,9 @@ class DetailFragment : MvRxEpoxyFragment() {
     var errorSnackbar: Snackbar? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.detail_fragment_main, container, false)
     }
@@ -73,7 +73,7 @@ class DetailFragment : MvRxEpoxyFragment() {
             errorSnackbar = Snackbar.make(constraintLayout, R.string.detail_error_tvshow, Snackbar.LENGTH_INDEFINITE)
             errorSnackbar!!.setAction(R.string.detail_error_retry) { _ -> viewModel.fetchTvShowData() }
             errorSnackbar!!.show()
-            Log.w(TAG, "Tv Shows request failed", error)
+            Timber.w(error, "TV Show Details Request failed")
         }, onSuccess = { tvShow ->
             setupBackgroundImage(tvShow)
             setupHeader(tvShow)
@@ -82,7 +82,7 @@ class DetailFragment : MvRxEpoxyFragment() {
             errorSnackbar = Snackbar.make(constraintLayout, R.string.detail_error_similar, Snackbar.LENGTH_INDEFINITE)
             errorSnackbar!!.setAction(R.string.detail_error_retry) { _ -> viewModel.refreshSimilarTvShows() }
             errorSnackbar!!.show()
-            Log.w(TAG, "Similar TV Shows request failed", error)
+            Timber.w(error, "Similar TV Shows Request failed")
         })
     }
 

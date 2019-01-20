@@ -64,7 +64,6 @@ dependencies {
     implementation(Config.Libs.moshi_kotlin)
     kapt(Config.Libs.moshi_processor)
 
-
     // Dagger
     implementation(Config.Libs.dagger)
     kapt(Config.Libs.dagger_processor)

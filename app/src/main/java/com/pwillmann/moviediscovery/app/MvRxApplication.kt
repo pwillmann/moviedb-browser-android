@@ -10,6 +10,8 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
+import timber.log.Timber.DebugTree
+import timber.log.Timber
 
 class MvRxApplication : Application(), HasActivityInjector, HasSupportFragmentInjector {
 
@@ -23,12 +25,15 @@ class MvRxApplication : Application(), HasActivityInjector, HasSupportFragmentIn
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = fragmentInjector
 
-
     override fun onCreate() {
         super.onCreate()
         DaggerAppComponent.builder()
                 .applicationModule(ApplicationModule(this))
                 .build()
                 .inject(this)
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(DebugTree())
+        }
     }
 }

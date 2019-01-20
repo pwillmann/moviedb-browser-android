@@ -3,6 +3,7 @@ package com.pwillmann.moviediscovery.app
 import android.os.Bundle
 import com.airbnb.mvrx.BaseMvRxActivity
 import dagger.android.AndroidInjection
+import timber.log.Timber
 
 /**
  * Extend this class to get MvRx support out of the box.
@@ -23,5 +24,36 @@ class MainActivity : BaseMvRxActivity() {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        logLifecycle("onCreate()")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        logLifecycle("onStart()")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        logLifecycle("onResume()")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        logLifecycle("onPause()")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        logLifecycle("onStop()")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        logLifecycle("onDestroy()")
+    }
+
+    private fun logLifecycle(message: String) {
+        Timber.tag("Lifecycle")
+        Timber.w("%s:: $message", javaClass.simpleName)
     }
 }
