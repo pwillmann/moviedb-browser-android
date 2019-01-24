@@ -1,4 +1,4 @@
-package com.pwillmann.moviediscovery.view
+package com.pwillmann.moviediscovery.epoxy
 
 import android.content.Context
 import com.google.android.material.button.MaterialButton
@@ -26,7 +26,7 @@ class TvItem @JvmOverloads constructor(
     private val posterImageView: ImageView
 
     init {
-        inflate(context, R.layout.views_tv_item, this)
+        inflate(context, R.layout.epoxy_tv_item, this)
         titleView = findViewById(R.id.title)
         summaryView = findViewById(R.id.summary)
         ratingView = findViewById(R.id.rating)

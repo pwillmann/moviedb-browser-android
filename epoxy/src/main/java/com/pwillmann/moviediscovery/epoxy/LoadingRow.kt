@@ -1,4 +1,4 @@
-package com.pwillmann.moviediscovery.view
+package com.pwillmann.moviediscovery.epoxy
 
 import android.content.Context
 import android.util.AttributeSet
@@ -13,6 +13,6 @@ class LoadingRow @JvmOverloads constructor(
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
     init {
-        inflate(context, R.layout.views_loading_row, this)
+        inflate(context, R.layout.epoxy_loading_row, this)
     }
 }

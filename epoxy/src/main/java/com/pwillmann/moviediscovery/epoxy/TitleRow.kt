@@ -1,4 +1,4 @@
-package com.pwillmann.moviediscovery.view
+package com.pwillmann.moviediscovery.epoxy
 
 import android.content.Context
 import android.util.AttributeSet
@@ -17,7 +17,7 @@ class TitleRow @JvmOverloads constructor(
     private val titleView: TextView
 
     init {
-        inflate(context, R.layout.views_title, this)
+        inflate(context, R.layout.epoxy_title, this)
         titleView = findViewById(R.id.title)
     }
 

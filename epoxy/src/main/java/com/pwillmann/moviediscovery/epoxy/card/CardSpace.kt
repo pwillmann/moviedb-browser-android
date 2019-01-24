@@ -1,4 +1,4 @@
-package com.pwillmann.moviediscovery.view.card
+package com.pwillmann.moviediscovery.epoxy.card
 
 import android.content.Context
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import com.airbnb.epoxy.AfterPropsSet
 import com.airbnb.epoxy.ModelProp
 import com.airbnb.epoxy.ModelView
-import com.pwillmann.moviediscovery.view.R
+import com.pwillmann.moviediscovery.epoxy.R
 
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
 class CardSpace @JvmOverloads constructor(
@@ -19,15 +19,15 @@ class CardSpace @JvmOverloads constructor(
     private var itemType: ItemType = ItemType.NORMAL
 
     init {
-        inflate(context, R.layout.views_card_space, this)
+        inflate(context, R.layout.epoxy_card_space, this)
         containerView = findViewById(R.id.container)
     }
     @AfterPropsSet
     fun afterProps() {
         when (itemType) {
-            ItemType.TOP -> containerView.setBackgroundResource(R.drawable.views_background_card_top)
-            ItemType.BOTTOM -> containerView.setBackgroundResource(R.drawable.views_background_card_bottom)
-            ItemType.NORMAL -> containerView.setBackgroundResource(R.drawable.views_background_card)
+            ItemType.TOP -> containerView.setBackgroundResource(R.drawable.epoxy_background_card_top)
+            ItemType.BOTTOM -> containerView.setBackgroundResource(R.drawable.epoxy_background_card_bottom)
+            ItemType.NORMAL -> containerView.setBackgroundResource(R.drawable.epoxy_background_card)
         }
     }
 

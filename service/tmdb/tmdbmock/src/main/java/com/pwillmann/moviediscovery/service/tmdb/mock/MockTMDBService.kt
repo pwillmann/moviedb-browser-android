@@ -34,7 +34,7 @@ class MockTMDBService @Inject constructor(val application: Application, val mosh
                 .map { moshi.adapter<TvShow>(TvShow::class.java).fromJson(it)!! }
     }
 
-    fun readAssetFileToString(fileName: String): String =
+    private fun readAssetFileToString(fileName: String): String =
             application.assets.open(fileName).bufferedReader().use { it.readText() }
 
     inline fun <reified E> Moshi.paginatedListAdapter(elementType: Type = E::class.java): JsonAdapter<PaginatedListResponse<E>> {

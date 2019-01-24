@@ -22,15 +22,15 @@ import com.pwillmann.moviediscovery.core.mvrx.MvRxEpoxyFragment
 import com.pwillmann.moviediscovery.core.mvrx.simpleController
 import com.pwillmann.moviediscovery.model.TvShow
 import com.pwillmann.moviediscovery.service.tmdb.core.TMDBConfig
-import com.pwillmann.moviediscovery.view.LoadingRowModel_
-import com.pwillmann.moviediscovery.view.TvItemCompactModel_
-import com.pwillmann.moviediscovery.view.card.ItemType
-import com.pwillmann.moviediscovery.view.card.cardCarousel
-import com.pwillmann.moviediscovery.view.card.cardLoading
-import com.pwillmann.moviediscovery.view.card.cardSpace
-import com.pwillmann.moviediscovery.view.card.cardText
-import com.pwillmann.moviediscovery.view.card.cardTitle
-import com.pwillmann.moviediscovery.view.loadingRow
+import com.pwillmann.moviediscovery.epoxy.LoadingRowModel_
+import com.pwillmann.moviediscovery.epoxy.TvItemCompactModel_
+import com.pwillmann.moviediscovery.epoxy.card.ItemType
+import com.pwillmann.moviediscovery.epoxy.card.cardCarousel
+import com.pwillmann.moviediscovery.epoxy.card.cardLoading
+import com.pwillmann.moviediscovery.epoxy.card.cardSpace
+import com.pwillmann.moviediscovery.epoxy.card.cardText
+import com.pwillmann.moviediscovery.epoxy.card.cardTitle
+import com.pwillmann.moviediscovery.epoxy.loadingRow
 import timber.log.Timber
 import javax.inject.Inject
 

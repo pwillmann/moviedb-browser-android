@@ -7,5 +7,5 @@
     android:layout_height="@dimen/res_margin_double"
     android:layout_marginStart="@dimen/res_margin_double"
     android:layout_marginEnd="@dimen/res_margin_double"
-    android:background="@drawable/views_background_card"
+    android:background="@drawable/epoxy_background_card"
     android:elevation="@dimen/views_card_elevation" />

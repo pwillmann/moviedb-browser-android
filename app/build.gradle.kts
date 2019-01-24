@@ -37,7 +37,7 @@ dependencies {
     implementation(project(":service:tmdb:tmdbcore"))
     implementation(project(":service:tmdb:tmdbmock"))
     implementation(project(":service:tmdb:tmdbremote"))
-    implementation(project(":view"))
+    implementation(project(":epoxy"))
     implementation(project(":feature:browser"))
     implementation(project(":feature:detail"))
     implementation(Config.Libs.kotlin_stdlib)

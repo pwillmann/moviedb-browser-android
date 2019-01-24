@@ -1,12 +1,12 @@
 include(
         ":app",
         ":core",
+        ":epoxy",
         ":feature:browser",
         ":feature:detail",
         ":model",
         ":resource",
         ":service:tmdb:tmdbcore",
         ":service:tmdb:tmdbmock",
-        ":service:tmdb:tmdbremote",
-        ":view"
+        ":service:tmdb:tmdbremote"
 )

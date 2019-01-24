@@ -19,9 +19,9 @@ import com.pwillmann.moviediscovery.core.mvrx.MvRxEpoxyFragment
 import com.pwillmann.moviediscovery.core.mvrx.simpleController
 import com.pwillmann.moviediscovery.feature.detail.DetailStateArgs
 import com.pwillmann.moviediscovery.service.tmdb.core.TMDBConfig
-import com.pwillmann.moviediscovery.view.loadingRow
-import com.pwillmann.moviediscovery.view.titleRow
-import com.pwillmann.moviediscovery.view.tvItem
+import com.pwillmann.moviediscovery.epoxy.loadingRow
+import com.pwillmann.moviediscovery.epoxy.titleRow
+import com.pwillmann.moviediscovery.epoxy.tvItem
 import timber.log.Timber
 import javax.inject.Inject
 

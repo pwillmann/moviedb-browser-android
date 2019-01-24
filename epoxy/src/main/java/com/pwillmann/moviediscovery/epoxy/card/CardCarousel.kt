@@ -1,4 +1,4 @@
-package com.pwillmann.moviediscovery.view.card
+package com.pwillmann.moviediscovery.epoxy.card
 
 import android.content.Context
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -9,7 +9,7 @@ import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.ModelProp
 import com.airbnb.epoxy.ModelView
 import com.airbnb.epoxy.OnViewRecycled
-import com.pwillmann.moviediscovery.view.R
+import com.pwillmann.moviediscovery.epoxy.R
 
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
 class CardCarousel @JvmOverloads constructor(
@@ -27,7 +27,7 @@ class CardCarousel @JvmOverloads constructor(
     private var carouselNumViewsToShowOnScreen: Float = 1f
 
     init {
-        inflate(context, R.layout.views_card_carousel, this)
+        inflate(context, R.layout.epoxy_card_carousel, this)
         carouselView = findViewById(R.id.carousel)
         containerView = findViewById(R.id.container)
     }
@@ -35,16 +35,16 @@ class CardCarousel @JvmOverloads constructor(
     @AfterPropsSet
     fun afterProps() {
         when (itemType) {
-            ItemType.TOP -> containerView.setBackgroundResource(R.drawable.views_background_card_top)
-            ItemType.BOTTOM -> containerView.setBackgroundResource(R.drawable.views_background_card_bottom)
-            ItemType.NORMAL -> containerView.setBackgroundResource(R.drawable.views_background_card)
+            ItemType.TOP -> containerView.setBackgroundResource(R.drawable.epoxy_background_card_top)
+            ItemType.BOTTOM -> containerView.setBackgroundResource(R.drawable.epoxy_background_card_bottom)
+            ItemType.NORMAL -> containerView.setBackgroundResource(R.drawable.epoxy_background_card)
         }
         carouselView.setNumViewsToShowOnScreen(carouselNumViewsToShowOnScreen)
         carouselView.setModels(carouselModels)
     }
     @OnViewRecycled
     fun clear() {
-        containerView.setBackgroundResource(R.drawable.views_background_card)
+        containerView.setBackgroundResource(R.drawable.epoxy_background_card)
     }
 
     @ModelProp

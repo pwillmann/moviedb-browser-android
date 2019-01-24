@@ -1,4 +1,4 @@
-package com.pwillmann.moviediscovery.view
+package com.pwillmann.moviediscovery.epoxy
 
 import android.content.Context
 import android.util.AttributeSet
@@ -23,7 +23,7 @@ class TvItemCompact @JvmOverloads constructor(
     private val posterImageView: ImageView
 
     init {
-        inflate(context, R.layout.views_tv_item_compact, this)
+        inflate(context, R.layout.epoxy_tv_item_compact, this)
         titleView = findViewById(R.id.title)
         ratingView = findViewById(R.id.rating)
         voteCountView = findViewById(R.id.voteCount)
