@@ -1,4 +1,4 @@
-package com.pwillmann.moviediscovery.service.remote
+package com.pwillmann.moviediscovery.service.tmdb.remote
 
 import android.annotation.SuppressLint
 import com.squareup.moshi.FromJson
@@ -54,11 +54,11 @@ object RemoteModule {
             .add(DateJsonAdapter())
             .build()
 
-    @JvmStatic
-    @Provides
-    @Singleton
-    fun zenjobService(retrofit: Retrofit): TvShowsService =
-            retrofit.create(TvShowsService::class.java)
+//    @JvmStatic
+//    @Provides
+//    @Singleton
+//    fun zenjobService(retrofit: Retrofit): TvShowsService =
+//            retrofit.create(TvShowsService::class.java)
 
     @JvmStatic
     @Provides

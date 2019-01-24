@@ -15,7 +15,7 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":model"))
     implementation(project(":resource"))
-    implementation(project(":service:remote"))
+    implementation(project(":service:tmdb:tmdbcore"))
     implementation(project(":view"))
 
     implementation(Config.Libs.androidx_appcompat) { exclude(group = "android.arch.lifecycle") }

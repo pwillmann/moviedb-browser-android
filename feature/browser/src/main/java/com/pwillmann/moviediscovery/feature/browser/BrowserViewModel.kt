@@ -12,7 +12,7 @@ import com.pwillmann.moviediscovery.core.mvrx.MvRxViewModel
 import com.pwillmann.moviediscovery.model.PaginatedListResponse
 import com.pwillmann.moviediscovery.model.TvShowCompact
 import com.pwillmann.moviediscovery.model.mergeWith
-import com.pwillmann.moviediscovery.service.remote.TvShowsService
+import com.pwillmann.moviediscovery.service.tmdb.core.TvShowsService
 import javax.inject.Inject
 
 data class BrowserState(

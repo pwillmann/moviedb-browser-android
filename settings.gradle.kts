@@ -5,6 +5,8 @@ include(
         ":feature:detail",
         ":model",
         ":resource",
-        ":service:remote",
+        ":service:tmdb:tmdbcore",
+        ":service:tmdb:tmdbmock",
+        ":service:tmdb:tmdbremote",
         ":view"
 )

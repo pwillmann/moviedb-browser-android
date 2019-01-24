@@ -2,7 +2,6 @@ package com.pwillmann.moviediscovery.feature.browser
 
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,14 +18,12 @@ import com.pwillmann.moviediscovery.core.bindView
 import com.pwillmann.moviediscovery.core.mvrx.MvRxEpoxyFragment
 import com.pwillmann.moviediscovery.core.mvrx.simpleController
 import com.pwillmann.moviediscovery.feature.detail.DetailStateArgs
-import com.pwillmann.moviediscovery.service.remote.TMDBBaseApiClient
-import com.pwillmann.moviediscovery.service.remote.TMDBBaseApiClient.Companion.tmdbImageBaseUrl
+import com.pwillmann.moviediscovery.service.tmdb.core.TMDBConfig
 import com.pwillmann.moviediscovery.view.loadingRow
 import com.pwillmann.moviediscovery.view.titleRow
 import com.pwillmann.moviediscovery.view.tvItem
 import timber.log.Timber
 import javax.inject.Inject
-
 
 class BrowserFragment : MvRxEpoxyFragment() {
     private val constraintLayout: ConstraintLayout by bindView(R.id.container)
@@ -44,9 +41,9 @@ class BrowserFragment : MvRxEpoxyFragment() {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.browser_fragment, container, false)
     }
@@ -109,7 +106,7 @@ class BrowserFragment : MvRxEpoxyFragment() {
                 summary(tvShow.overview)
                 rating(tvShow.voteAverage.toString())
                 voteCount(tvShow.voteCount.toString())
-                posterImageUrl("$tmdbImageBaseUrl/${TMDBBaseApiClient.posterSizes[TMDBBaseApiClient.Companion.ImageSize.SMALL.toString()]}/${tvShow.posterPath}")
+                posterImageUrl("$TMDBConfig.tmdbImageBaseUrl/${TMDBConfig.posterSizes[TMDBConfig.ImageSize.SMALL.toString()]}/${tvShow.posterPath}")
                 clickListener { _ ->
                     navigateTo(R.id.action_browserFragment_to_detailFragment,
                             DetailStateArgs(tvShow.id))

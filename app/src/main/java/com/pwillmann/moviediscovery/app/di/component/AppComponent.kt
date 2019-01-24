@@ -5,7 +5,8 @@ import com.pwillmann.moviediscovery.app.di.module.ActivityModule
 import com.pwillmann.moviediscovery.app.di.module.ApplicationModule
 import com.pwillmann.moviediscovery.app.di.module.FragmentModule
 import com.pwillmann.moviediscovery.core.di.ViewModelBuilder
-import com.pwillmann.moviediscovery.service.remote.RemoteModule
+import com.pwillmann.moviediscovery.service.tmdb.mock.MockModule
+import com.pwillmann.moviediscovery.service.tmdb.remote.RemoteModule
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import dagger.android.support.AndroidSupportInjectionModule
@@ -18,6 +19,7 @@ import javax.inject.Singleton
             AndroidSupportInjectionModule::class,
             ApplicationModule::class,
             FragmentModule::class,
+            MockModule::class,
             RemoteModule::class,
             ViewModelBuilder::class]
 )

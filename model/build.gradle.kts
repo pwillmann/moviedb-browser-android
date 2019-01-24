@@ -1,5 +1,4 @@
 import com.pwillmann.moviediscovery.Config
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
 
 plugins {
     `java-library`

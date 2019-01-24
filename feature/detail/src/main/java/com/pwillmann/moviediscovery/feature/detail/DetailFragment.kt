@@ -2,7 +2,6 @@ package com.pwillmann.moviediscovery.feature.detail
 
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +21,7 @@ import com.pwillmann.moviediscovery.core.bindView
 import com.pwillmann.moviediscovery.core.mvrx.MvRxEpoxyFragment
 import com.pwillmann.moviediscovery.core.mvrx.simpleController
 import com.pwillmann.moviediscovery.model.TvShow
-import com.pwillmann.moviediscovery.service.remote.TMDBBaseApiClient
+import com.pwillmann.moviediscovery.service.tmdb.core.TMDBConfig
 import com.pwillmann.moviediscovery.view.LoadingRowModel_
 import com.pwillmann.moviediscovery.view.TvItemCompactModel_
 import com.pwillmann.moviediscovery.view.card.ItemType
@@ -34,7 +33,6 @@ import com.pwillmann.moviediscovery.view.card.cardTitle
 import com.pwillmann.moviediscovery.view.loadingRow
 import timber.log.Timber
 import javax.inject.Inject
-
 
 class DetailFragment : MvRxEpoxyFragment() {
     private val viewModel: DetailViewModel by fragmentViewModel()
@@ -57,9 +55,9 @@ class DetailFragment : MvRxEpoxyFragment() {
     var errorSnackbar: Snackbar? = null
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.detail_fragment_main, container, false)
     }
@@ -96,7 +94,7 @@ class DetailFragment : MvRxEpoxyFragment() {
     private fun setupBackgroundImage(tvShow: TvShow) {
         GlideApp.with(this)
                 .asBitmap()
-                .load("${TMDBBaseApiClient.tmdbImageBaseUrl}/${TMDBBaseApiClient.posterSizes[TMDBBaseApiClient.Companion.ImageSize.LARGE.toString()]}/${tvShow.backdropPath}")
+                .load("${TMDBConfig.tmdbImageBaseUrl}/${TMDBConfig.posterSizes[TMDBConfig.ImageSize.LARGE.toString()]}/${tvShow.backdropPath}")
                 .placeholder(R.color.black)
                 .into(backgroundImageView)
     }
@@ -165,7 +163,7 @@ class DetailFragment : MvRxEpoxyFragment() {
                     .title(similarShow.name)
                     .rating(similarShow.voteAverage.toString())
                     .voteCount(similarShow.voteCount.toString())
-                    .posterImageUrl("${TMDBBaseApiClient.tmdbImageBaseUrl}/${TMDBBaseApiClient.posterSizes[TMDBBaseApiClient.Companion.ImageSize.SMALL.toString()]}/${similarShow.posterPath}")
+                    .posterImageUrl("${TMDBConfig.tmdbImageBaseUrl}/${TMDBConfig.posterSizes[TMDBConfig.ImageSize.SMALL.toString()]}/${similarShow.posterPath}")
                     .clickListener { _ -> navigateTo(R.id.action_detailFragment_to_detailFragment, DetailStateArgs(similarShow.id)) })
         }
         if (similarTvShowsResponse.page < similarTvShowsResponse.totalPages) {

@@ -23,6 +23,7 @@ android {
 
 dependencies {
     implementation(project(":model"))
+    implementation(project(":service:tmdb:tmdbcore"))
     implementation(Config.Libs.kotlin_stdlib)
 
     implementation(Config.Libs.rxJava)
