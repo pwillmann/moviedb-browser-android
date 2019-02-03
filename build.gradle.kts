@@ -11,11 +11,19 @@ buildscript {
         classpath("com.android.tools.build:gradle:3.3.0")
         classpath("org.jetbrains.kotlin:kotlin-android-extensions:${com.pwillmann.moviediscovery.Config.Versions.kotlin}")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${com.pwillmann.moviediscovery.Config.Versions.kotlin}")
+        classpath("com.jakewharton:butterknife-gradle-plugin:10.0.0")
     }
 }
 
 plugins {
+    id("com.gradle.build-scan") version "2.1"
     id("com.diffplug.gradle.spotless") version "3.16.0"
+}
+
+buildScan {
+    setTermsOfServiceUrl("https://gradle.com/terms-of-service")
+    setTermsOfServiceAgree("yes")
+    publishAlways()
 }
 
 allprojects {

@@ -1,7 +1,4 @@
 import com.pwillmann.moviediscovery.Config
-import com.pwillmann.moviediscovery.Config.Android.applicationId
-import com.pwillmann.moviediscovery.Config.Android.versionCode
-import com.pwillmann.moviediscovery.Config.Android.versionName
 
 plugins {
     id("com.android.application")
