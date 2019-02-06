@@ -2,7 +2,7 @@ package com.pwillmann.moviediscovery.epoxy.v2.gallery
 
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.AccelerateInterpolator
 import android.view.animation.Interpolator
 import androidx.annotation.Px
 import kotlin.math.sign
@@ -11,19 +11,25 @@ class GalleryTransformer : GalleryScrollItemTransformer {
 
     private var pivotX: GalleryPivot? = null
     private var pivotY: GalleryPivot? = null
+
     private var minScale: Float = 0.toFloat()
     private var maxMinDiffScale: Float = 0.toFloat()
+
     private var minAlpha: Float = 0.toFloat()
     private var maxMinDiffAlpha: Float = 0.toFloat()
+
+    private var maxElevation: Float = -1f
+    private var minElevation: Float = -1f
+
     private var overlapDistance: Float = 0.toFloat()
-    private var interpolator: Interpolator = AccelerateDecelerateInterpolator()
+    private var interpolator: Interpolator = AccelerateInterpolator(1.2f)
 
     init {
         pivotX = GalleryPivot.X.CENTER.create()
         pivotY = GalleryPivot.Y.CENTER.create()
         minScale = 0.8f
-        minAlpha = 0.6f
         maxMinDiffScale = 1f - minScale
+        minAlpha = 0.6f
         maxMinDiffAlpha = 1f - minAlpha
     }
 
@@ -33,11 +39,12 @@ class GalleryTransformer : GalleryScrollItemTransformer {
         val closenessToCenter = 1f - Math.abs(position)
         val scale = minScale + maxMinDiffScale * closenessToCenter
         val alpha = minAlpha + maxMinDiffAlpha * closenessToCenter
+        val elevation = minElevation + maxElevation * closenessToCenter
         item.scaleX = scale
         item.scaleY = scale
         item.alpha = alpha
         item.translationX = calcTranslation(item, position)
-        if (-0.3f < position && position < 0.3f) item.bringToFront()
+        if (elevation >= 0) item.elevation = elevation
     }
 
     private fun calcTranslation(item: View, position: Float): Float {
@@ -96,6 +103,18 @@ class GalleryTransformer : GalleryScrollItemTransformer {
 
         fun setOverlapDistance(@Px distance: Int): Builder {
             transformer.overlapDistance = distance.toFloat()
+            return this
+        }
+
+        fun setElevation(@Px maxElevation: Int, @Px minElevation: Int): Builder {
+            transformer.maxElevation = maxElevation.toFloat()
+            transformer.minElevation = minElevation.toFloat()
+            return this
+        }
+
+        fun setElevation(@Px maxElevation: Int): Builder {
+            transformer.maxElevation = maxElevation.toFloat()
+            transformer.minElevation = 0.toFloat()
             return this
         }
 

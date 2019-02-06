@@ -20,15 +20,17 @@ class GalleryCarousel(context: Context) : Carousel(context) {
     }
 
     override fun createLayoutManager(): RecyclerView.LayoutManager {
-        return GalleryLayoutManager(context, null).also {
-            it.setItemTransformer(
+        return GalleryLayoutManager(context, null).apply {
+            setItemTransformer(
                     GalleryTransformer.Builder()
                             .setMaxScale(1f)
-                            .setMinScale(0.9f)
+                            .setMinScale(0.85f)
                             .setOverlapDistance(dpToPx(8))
+                            .setElevation(dpToPx(10), dpToPx(4))
                             .build())
-            it.setOffscreenItems(3)
-            it.setShouldSlideOnFling(true)
+            setOffscreenItems(3)
+            setShouldSlideOnFling(true)
+            setSlideOnFlingThreshold(2300)
         }
     }
 

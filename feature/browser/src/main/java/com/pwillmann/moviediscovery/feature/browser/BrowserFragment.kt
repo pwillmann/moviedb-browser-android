@@ -106,7 +106,7 @@ class BrowserFragment : MvRxEpoxyFragment() {
             withModelsFrom(state.tvShowsResponse.results) {
                 ImageCardItem_()
                         .id("carousel-item-${it.id}")
-                        .url("${TMDBConfig.tmdbImageBaseUrl}/${TMDBConfig.posterSizes[TMDBConfig.ImageSize.MEDIUM.toString()]}/${it.backdropPath}")
+                        .url("${TMDBConfig.tmdbImageBaseUrl}/${TMDBConfig.posterSizes[TMDBConfig.ImageSize.MEDIUM.toString()]}/${it.posterPath}")
             }
         }
 

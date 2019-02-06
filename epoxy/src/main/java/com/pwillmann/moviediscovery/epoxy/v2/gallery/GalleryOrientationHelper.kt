@@ -2,6 +2,9 @@ package com.pwillmann.moviediscovery.epoxy.v2.gallery
 
 import android.graphics.Point
 
+/**
+ * Borrowed from https://github.com/yarolegovich/DiscreteScrollView
+ */
 class GalleryOrientationHelper {
 
     fun getViewEnd(recyclerWidth: Int, recyclerHeight: Int): Int {
@@ -17,7 +20,7 @@ class GalleryOrientationHelper {
         outPoint.set(newX, recyclerCenter.y)
     }
 
-    fun shiftViewCenter(direction: GalleryDirection, shiftAmount: Int, outCenter: Point) {
+    fun shiftViewCenter(direction: Direction, shiftAmount: Int, outCenter: Point) {
         val newX = outCenter.x + direction.applyTo(shiftAmount)
         outCenter.set(newX, outCenter.y)
     }

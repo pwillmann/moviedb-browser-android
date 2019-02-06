@@ -4,6 +4,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
+/**
+ * Borrowed from https://github.com/yarolegovich/DiscreteScrollView
+ */
 class GalleryLayoutManagerDelegate(private val layoutManager: RecyclerView.LayoutManager) {
 
     val childCount: Int

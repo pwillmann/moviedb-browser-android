@@ -2,6 +2,9 @@ package com.pwillmann.moviediscovery.epoxy.v2.gallery
 
 import android.view.View
 
+/**
+ * Borrowed from https://github.com/yarolegovich/DiscreteScrollView
+ */
 interface GalleryScrollItemTransformer {
     /**
      *

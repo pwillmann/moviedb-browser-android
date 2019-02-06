@@ -14,6 +14,9 @@ import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import java.util.Locale
 
+/**
+ * Borrowed from https://github.com/yarolegovich/DiscreteScrollView
+ */
 class GalleryLayoutManager(
     private val context: Context,
     private val scrollStateListener: ScrollStateListener?
@@ -25,8 +28,8 @@ class GalleryLayoutManager(
     protected var currentViewCenter: Point
     protected var childHalfWidth: Int = 0
     protected var childHalfHeight: Int = 0
+
     var extraLayoutSpace: Int = 0
-        protected set
 
     // Max possible distance a view can travel during one scroll phase
     protected var scrollToChangeCurrent: Int = 0
@@ -65,7 +68,7 @@ class GalleryLayoutManager(
         get() = when {
             scrolled == 0 -> currentPosition
             pendingPosition != NO_POSITION -> pendingPosition
-            else -> currentPosition + GalleryDirection.fromDelta(scrolled).applyTo(1)
+            else -> currentPosition + Direction.fromDelta(scrolled).applyTo(1)
         }
 
     private val isAnotherItemCloserThanCurrent: Boolean
@@ -186,19 +189,20 @@ class GalleryLayoutManager(
         }
 
         // Layout items before the current item
-        layoutViews(recycler, GalleryDirection.START, endBound)
+        layoutViews(recycler, Direction.START, endBound)
 
         // Layout items after the current item
-        layoutViews(recycler, GalleryDirection.END, endBound)
+        layoutViews(recycler, Direction.END, endBound)
 
         recycleDetachedViewsAndClearCache(recycler)
     }
 
-    private fun layoutViews(recycler: RecyclerView.Recycler, direction: GalleryDirection, endBound: Int) {
-        val positionStep = direction.applyTo(1)
+    private fun layoutViews(recycler: RecyclerView.Recycler, layoutDirection: Direction, endBound: Int) {
+        val positionStep = layoutDirection.applyTo(1)
 
         // Predictive layout is required when we are doing smooth fast scroll towards pendingPosition
-        var noPredictiveLayoutRequired = pendingPosition == NO_POSITION || !direction.sameAs(pendingPosition - currentPosition)
+        val scrollDirection = Direction.fromDelta(pendingPosition - currentPosition)
+        var noPredictiveLayoutRequired = pendingPosition == NO_POSITION || scrollDirection != layoutDirection
 
         viewCenterIterator.set(currentViewCenter.x, currentViewCenter.y)
         var pos = currentPosition + positionStep
@@ -206,7 +210,7 @@ class GalleryLayoutManager(
             if (pos == pendingPosition) {
                 noPredictiveLayoutRequired = true
             }
-            orientationHelper!!.shiftViewCenter(direction, scrollToChangeCurrent, viewCenterIterator)
+            orientationHelper!!.shiftViewCenter(layoutDirection, scrollToChangeCurrent, viewCenterIterator)
             if (isViewVisible(viewCenterIterator, endBound)) {
                 layoutView(recycler, pos, viewCenterIterator)
             } else if (noPredictiveLayoutRequired) {
@@ -300,7 +304,7 @@ class GalleryLayoutManager(
             return 0
         }
 
-        val direction = GalleryDirection.fromDelta(amount)
+        val direction = Direction.fromDelta(amount)
         val leftToScroll = calculateAllowedScrollIn(direction)
         if (leftToScroll <= 0) {
             return 0
@@ -397,7 +401,7 @@ class GalleryLayoutManager(
             scrolled = 0
         }
 
-        val scrollDirection = GalleryDirection.fromDelta(scrolled)
+        val scrollDirection = Direction.fromDelta(scrolled)
         if (Math.abs(scrolled) == scrollToChangeCurrent) {
             currentPosition += scrollDirection.applyTo(1)
             scrolled = 0
@@ -428,7 +432,7 @@ class GalleryLayoutManager(
             scrolled -= scrolledPositions * scrollToChangeCurrent
         }
         if (isAnotherItemCloserThanCurrent) {
-            val direction = GalleryDirection.fromDelta(scrolled)
+            val direction = Direction.fromDelta(scrolled)
             currentPosition += direction.applyTo(1)
             scrolled = -getHowMuchIsLeftToScroll(scrolled)
         }
@@ -439,7 +443,7 @@ class GalleryLayoutManager(
     fun onFling(velocityX: Int, velocityY: Int) {
         val velocity = orientationHelper!!.getFlingVelocity(velocityX, velocityY)
         val throttleValue = if (shouldSlideOnFling) Math.abs(velocity / flingThreshold) else 1
-        var newPosition = currentPosition + GalleryDirection.fromDelta(velocity).applyTo(throttleValue)
+        var newPosition = currentPosition + Direction.fromDelta(velocity).applyTo(throttleValue)
         newPosition = checkNewOnFlingPositionIsInBounds(newPosition)
         val isInScrollDirection = velocity * scrolled >= 0
         val canFling = isInScrollDirection && isInBounds(newPosition)
@@ -457,18 +461,18 @@ class GalleryLayoutManager(
         }
     }
 
-    protected fun calculateAllowedScrollIn(direction: GalleryDirection): Int {
+    protected fun calculateAllowedScrollIn(direction: Direction): Int {
         if (pendingScroll != 0) {
             return Math.abs(pendingScroll)
         }
         val allowedScroll: Int
         val isBoundReached: Boolean
         val isScrollDirectionAsBefore = direction.applyTo(scrolled) > 0
-        if (direction === GalleryDirection.START && currentPosition == 0) {
+        if (direction === Direction.START && currentPosition == 0) {
             // We can scroll to the left when currentPosition == 0 only if we scrolled to the right before
             isBoundReached = scrolled == 0
             allowedScroll = if (isBoundReached) 0 else Math.abs(scrolled)
-        } else if (direction === GalleryDirection.END && currentPosition == recyclerViewProxy!!.itemCount - 1) {
+        } else if (direction === Direction.END && currentPosition == recyclerViewProxy!!.itemCount - 1) {
             // We can scroll to the right when currentPosition == last only if we scrolled to the left before
             isBoundReached = scrolled == 0
             allowedScroll = if (isBoundReached) 0 else Math.abs(scrolled)
@@ -492,7 +496,7 @@ class GalleryLayoutManager(
     private fun startSmoothPendingScroll(position: Int) {
         if (currentPosition == position) return
         pendingScroll = -scrolled
-        val direction = GalleryDirection.fromDelta(position - currentPosition)
+        val direction = Direction.fromDelta(position - currentPosition)
         val distanceToScroll = Math.abs(position - currentPosition) * scrollToChangeCurrent
         pendingScroll += direction.applyTo(distanceToScroll)
         pendingPosition = position
@@ -533,7 +537,7 @@ class GalleryLayoutManager(
         return if (itemCount == 0) {
             0
         } else {
-            (computeScrollRange(state) / itemCount as Float).toInt()
+            (computeScrollRange(state) / itemCount)
         }
     }
 
@@ -641,7 +645,7 @@ class GalleryLayoutManager(
     }
 
     private fun getHowMuchIsLeftToScroll(dx: Int): Int {
-        return GalleryDirection.fromDelta(dx).applyTo(scrollToChangeCurrent - Math.abs(scrolled))
+        return Direction.fromDelta(dx).applyTo(scrollToChangeCurrent - Math.abs(scrolled))
     }
 
     private fun notifyScroll() {

@@ -3,6 +3,10 @@ package com.pwillmann.moviediscovery.epoxy.v2.gallery
 import android.view.View
 import androidx.annotation.IntDef
 
+/**
+ * Borrowed from https://github.com/yarolegovich/DiscreteScrollView
+ */
+
 class GalleryPivot(@Axis val axis: Int, private val pivotPoint: Int) {
 
     fun setOn(view: View) {
