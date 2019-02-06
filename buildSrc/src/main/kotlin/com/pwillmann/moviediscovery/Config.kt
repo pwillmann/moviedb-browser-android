@@ -8,7 +8,8 @@ object Config {
         // Tooling
         val kotlin = "1.3.20"
         val timber = "4.7.1"
-        val spotless = "3.16.0"
+        val spotless = "3.17.0"
+        val detekt = "1.0.0-RC12"
 
         // AndroidX / Google
         val appcompat = "1.1.0-alpha01"

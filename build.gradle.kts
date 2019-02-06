@@ -1,6 +1,7 @@
 import com.android.build.gradle.BaseExtension
 import com.pwillmann.moviediscovery.Config
 
+
 buildscript {
 
     repositories {
@@ -17,13 +18,21 @@ buildscript {
 
 plugins {
     id("com.gradle.build-scan") version "2.1"
-    id("com.diffplug.gradle.spotless") version "3.16.0"
+    id("com.diffplug.gradle.spotless") version com.pwillmann.moviediscovery.Config.Versions.spotless
+    id("io.gitlab.arturbosch.detekt") version com.pwillmann.moviediscovery.Config.Versions.detekt
 }
 
 buildScan {
-    setTermsOfServiceUrl("https://gradle.com/terms-of-service")
-    setTermsOfServiceAgree("yes")
+    termsOfServiceUrl = "https://gradle.com/terms-of-service"
+    termsOfServiceAgree = "yes"
     publishAlways()
+}
+
+detekt {
+    toolVersion = com.pwillmann.moviediscovery.Config.Versions.detekt
+    input = files("src/main/kotlin", "src/main/java")
+    parallel = true
+    filters = ".*/resources/.*,.*/build/.*"
 }
 
 allprojects {
