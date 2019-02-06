@@ -1,6 +1,7 @@
 import com.android.build.gradle.BaseExtension
 import com.pwillmann.moviediscovery.Config
 
+
 buildscript {
 
     repositories {
@@ -11,11 +12,27 @@ buildscript {
         classpath("com.android.tools.build:gradle:3.3.0")
         classpath("org.jetbrains.kotlin:kotlin-android-extensions:${com.pwillmann.moviediscovery.Config.Versions.kotlin}")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${com.pwillmann.moviediscovery.Config.Versions.kotlin}")
+        classpath("com.jakewharton:butterknife-gradle-plugin:10.0.0")
     }
 }
 
 plugins {
-    id("com.diffplug.gradle.spotless") version "3.16.0"
+    id("com.gradle.build-scan") version "2.1"
+    id("com.diffplug.gradle.spotless") version com.pwillmann.moviediscovery.Config.Versions.spotless
+    id("io.gitlab.arturbosch.detekt") version com.pwillmann.moviediscovery.Config.Versions.detekt
+}
+
+buildScan {
+    termsOfServiceUrl = "https://gradle.com/terms-of-service"
+    termsOfServiceAgree = "yes"
+    publishAlways()
+}
+
+detekt {
+    toolVersion = com.pwillmann.moviediscovery.Config.Versions.detekt
+    input = files("src/main/kotlin", "src/main/java")
+    parallel = true
+    filters = ".*/resources/.*,.*/build/.*"
 }
 
 allprojects {

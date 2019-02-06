@@ -6,9 +6,10 @@ object Config {
 
     object Versions {
         // Tooling
-        val kotlin = "1.3.11"
+        val kotlin = "1.3.20"
         val timber = "4.7.1"
-        val spotless = "3.16.0"
+        val spotless = "3.17.0"
+        val detekt = "1.0.0-RC12"
 
         // AndroidX / Google
         val appcompat = "1.1.0-alpha01"
@@ -28,7 +29,7 @@ object Config {
         val moshi = "1.8.0"
 
         // AirBnB
-        val epoxy = "3.0.0"
+        val epoxy = "3.2.0"
         val mvrx = "0.7.2"
 
         // ReactiveX

@@ -10,6 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.airbnb.epoxy.Carousel
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.airbnb.mvrx.MvRx
 import com.airbnb.mvrx.fragmentViewModel
@@ -17,11 +18,14 @@ import com.google.android.material.snackbar.Snackbar
 import com.pwillmann.moviediscovery.core.bindView
 import com.pwillmann.moviediscovery.core.mvrx.MvRxEpoxyFragment
 import com.pwillmann.moviediscovery.core.mvrx.simpleController
-import com.pwillmann.moviediscovery.feature.detail.DetailStateArgs
-import com.pwillmann.moviediscovery.service.tmdb.core.TMDBConfig
 import com.pwillmann.moviediscovery.epoxy.loadingRow
 import com.pwillmann.moviediscovery.epoxy.titleRow
 import com.pwillmann.moviediscovery.epoxy.tvItem
+import com.pwillmann.moviediscovery.epoxy.v2.ImageCardItem_
+import com.pwillmann.moviediscovery.epoxy.v2.galleryCarousel
+import com.pwillmann.moviediscovery.epoxy.v2.withModelsFrom
+import com.pwillmann.moviediscovery.feature.detail.DetailStateArgs
+import com.pwillmann.moviediscovery.service.tmdb.core.TMDBConfig
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -94,6 +98,18 @@ class BrowserFragment : MvRxEpoxyFragment() {
             }
             return@simpleController
         }
+
+        galleryCarousel {
+            id("carousel")
+            padding(Carousel.Padding.dp(8, 0))
+
+            withModelsFrom(state.tvShowsResponse.results) {
+                ImageCardItem_()
+                        .id("carousel-item-${it.id}")
+                        .url("${TMDBConfig.tmdbImageBaseUrl}/${TMDBConfig.posterSizes[TMDBConfig.ImageSize.MEDIUM.toString()]}/${it.posterPath}")
+            }
+        }
+
         titleRow {
             id("title")
             title(R.string.browser_title)
@@ -106,7 +122,7 @@ class BrowserFragment : MvRxEpoxyFragment() {
                 summary(tvShow.overview)
                 rating(tvShow.voteAverage.toString())
                 voteCount(tvShow.voteCount.toString())
-                posterImageUrl("$TMDBConfig.tmdbImageBaseUrl/${TMDBConfig.posterSizes[TMDBConfig.ImageSize.SMALL.toString()]}/${tvShow.posterPath}")
+                posterImageUrl("${TMDBConfig.tmdbImageBaseUrl}/${TMDBConfig.posterSizes[TMDBConfig.ImageSize.SMALL.toString()]}/${tvShow.posterPath}")
                 clickListener { _ ->
                     navigateTo(R.id.action_browserFragment_to_detailFragment,
                             DetailStateArgs(tvShow.id))
