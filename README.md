@@ -13,14 +13,14 @@ of the system wide `.gradle` folder.
 ## Third-Party Libraries used
 
 The following libraries were at least partially used in this project:
-* [MvRX]()
-* [Epoxy]()
-* [Dagger]()
-* [AssistedInject]()
-* [Retrofit]()
-* [Moshi]()
-* [Glide]()
-* [Timber]()
+* [MvRX](https://github.com/airbnb/MvRx)
+* [Epoxy](https://github.com/airbnb/epoxy)
+* [Dagger](https://github.com/google/dagger)
+* [AssistedInject](https://github.com/square/AssistedInject)
+* [Retrofit](https://github.com/square/retrofit)
+* [Moshi](https://github.com/square/moshi)
+* [Glide](https://github.com/bumptech/glide)
+* [Timber](https://github.com/JakeWharton/timber)
 * [DiscreteScrollView](https://github.com/yarolegovich/DiscreteScrollView)
-* [ReactiveX]()
+* [ReactiveX](https://github.com/ReactiveX/RxJava)
 
