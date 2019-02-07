@@ -30,9 +30,14 @@ buildScan {
 
 detekt {
     toolVersion = com.pwillmann.moviediscovery.Config.Versions.detekt
+    config = files("$rootDir/default-detekt-config.yml")
     input = files("src/main/kotlin", "src/main/java")
+    reports {
+        xml.destination = file("${project.projectDir}/reports/detekt.xml")
+        html.destination = file("${project.projectDir}/reports/detekt.html")
+    }
     parallel = true
-    filters = ".*/resources/.*,.*/build/.*"
+    filters = ".*build.*,.*/resources/.*,.*/tmp/.*"
 }
 
 allprojects {
