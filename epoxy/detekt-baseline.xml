@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <Blacklist timestamp="1549537377431"></Blacklist>
+  <Whitelist timestamp="1549537377431">
+    <ID>ComplexMethod:GalleryLayoutManager.kt$GalleryLayoutManager$protected fun calculateAllowedScrollIn(direction: Direction): Int</ID>
+    <ID>LargeClass:GalleryLayoutManager.kt$GalleryLayoutManager : LayoutManager</ID>
+    <ID>MagicNumber:GalleryCarousel.kt$GalleryCarousel$0.85f</ID>
+    <ID>MagicNumber:GalleryCarousel.kt$GalleryCarousel$10</ID>
+    <ID>MagicNumber:GalleryCarousel.kt$GalleryCarousel$2300</ID>
+    <ID>MagicNumber:GalleryCarousel.kt$GalleryCarousel$3</ID>
+    <ID>MagicNumber:GalleryCarousel.kt$GalleryCarousel$4</ID>
+    <ID>MagicNumber:GalleryCarousel.kt$GalleryCarousel$8</ID>
+    <ID>MagicNumber:GalleryLayoutManager.kt$GalleryLayoutManager.DiscreteLinearSmoothScroller$0.01f</ID>
+    <ID>MagicNumber:GalleryPivot.kt$GalleryPivot$0.5f</ID>
+    <ID>MagicNumber:GalleryTransformer.kt$GalleryTransformer$0.6f</ID>
+    <ID>MagicNumber:GalleryTransformer.kt$GalleryTransformer$0.8f</ID>
+    <ID>MagicNumber:GalleryTransformer.kt$GalleryTransformer$1.2f</ID>
+    <ID>TooManyFunctions:GalleryLayoutManager.kt$GalleryLayoutManager : LayoutManager</ID>
+    <ID>TooManyFunctions:GalleryLayoutManagerDelegate.kt$GalleryLayoutManagerDelegate</ID>
+    <ID>TooManyFunctions:GalleryOrientationHelper.kt$GalleryOrientationHelper</ID>
+    <ID>TooManyFunctions:GalleryTransformer.kt$GalleryTransformer$Builder</ID>
+  </Whitelist>
+</SmellBaseline>

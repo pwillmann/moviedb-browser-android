@@ -28,13 +28,6 @@ buildScan {
     publishAlways()
 }
 
-detekt {
-    toolVersion = com.pwillmann.moviediscovery.Config.Versions.detekt
-    input = files("src/main/kotlin", "src/main/java")
-    parallel = true
-    filters = ".*/resources/.*,.*/build/.*"
-}
-
 allprojects {
     repositories {
         google()
@@ -45,6 +38,7 @@ allprojects {
 
 subprojects {
     project.pluginManager.apply("com.diffplug.gradle.spotless")
+    project.pluginManager.apply("io.gitlab.arturbosch.detekt")
 
     spotless {
         java {
@@ -70,6 +64,18 @@ subprojects {
             trimTrailingWhitespace()
             endWithNewline()
         }
+    }
+
+    detekt {
+        toolVersion = com.pwillmann.moviediscovery.Config.Versions.detekt
+        config = files("$rootDir/default-detekt-config.yml")
+        reports {
+            xml.destination = file("${project.projectDir}/build/reports/detekt.xml")
+            html.destination = file("${project.projectDir}/build/reports/detekt.html")
+        }
+        parallel = true
+        filters = ".*build.*;.*/resources/.*;.*/tmp/.*"
+        baseline = file("detekt-baseline.xml")
     }
 
     project.plugins.whenPluginAdded {
