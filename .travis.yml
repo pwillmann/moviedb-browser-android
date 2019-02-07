@@ -21,10 +21,7 @@ android:
 
 
 script:
-- ./gradlew spotlessCheck
-- ./gradlew lintDebug
-- ./gradlew test
-- ./gradlew assembleDebug
+- ./gradlew spotlessCheck lintDebug test assembleDebug
 
 before_install:
 # Install SDK license so Android Gradle plugin can install deps.
