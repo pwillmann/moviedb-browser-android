@@ -1,4 +1,4 @@
-# moviedb-browser-android
+# moviedb-browser-android [![Build Status](https://travis-ci.com/pwillmann/moviedb-browser-android.svg?branch=master)](https://travis-ci.com/pwillmann/moviedb-browser-android)
 
 This project is a personal demo app to test new libraries and new architectures. The [TMDB](https://www.themoviedb.org/) API is used to provide a homescreen with popular tv shows and a detail page with details for one specific tv show.
 
