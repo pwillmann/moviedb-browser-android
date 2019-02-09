@@ -1,12 +1,14 @@
 include(
         ":app",
-        ":core",
-        ":epoxy",
+        ":core:dagger",
+        ":core:kotterknife",
+        ":core:model",
+        ":lib:arch",
+        ":lib:epoxy",
+        ":lib:resource",
+        ":lib:service:tmdb:tmdbcore",
+        ":lib:service:tmdb:tmdbmock",
+        ":lib:service:tmdb:tmdbremote",
         ":feature:browser",
-        ":feature:detail",
-        ":model",
-        ":resource",
-        ":service:tmdb:tmdbcore",
-        ":service:tmdb:tmdbmock",
-        ":service:tmdb:tmdbremote"
+        ":feature:detail"
 )

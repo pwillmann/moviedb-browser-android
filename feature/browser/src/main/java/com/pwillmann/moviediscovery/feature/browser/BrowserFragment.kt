@@ -15,9 +15,7 @@ import com.airbnb.epoxy.EpoxyRecyclerView
 import com.airbnb.mvrx.MvRx
 import com.airbnb.mvrx.fragmentViewModel
 import com.google.android.material.snackbar.Snackbar
-import com.pwillmann.moviediscovery.core.bindView
-import com.pwillmann.moviediscovery.core.mvrx.MvRxEpoxyFragment
-import com.pwillmann.moviediscovery.core.mvrx.simpleController
+import com.pwillmann.moviediscovery.core.kotterknife.bindView
 import com.pwillmann.moviediscovery.epoxy.loadingRow
 import com.pwillmann.moviediscovery.epoxy.titleRow
 import com.pwillmann.moviediscovery.epoxy.tvItem
@@ -25,6 +23,8 @@ import com.pwillmann.moviediscovery.epoxy.v2.ImageCardItem_
 import com.pwillmann.moviediscovery.epoxy.v2.galleryCarousel
 import com.pwillmann.moviediscovery.epoxy.v2.withModelsFrom
 import com.pwillmann.moviediscovery.feature.detail.DetailStateArgs
+import com.pwillmann.moviediscovery.lib.arch.mvrx.MvRxEpoxyFragment
+import com.pwillmann.moviediscovery.lib.arch.mvrx.simpleController
 import com.pwillmann.moviediscovery.service.tmdb.core.TMDBConfig
 import timber.log.Timber
 import javax.inject.Inject

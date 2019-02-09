@@ -12,11 +12,13 @@ androidExtensions {
 }
 
 dependencies {
-    implementation(project(":core"))
-    implementation(project(":model"))
-    implementation(project(":resource"))
-    implementation(project(":service:tmdb:tmdbcore"))
-    implementation(project(":epoxy"))
+    implementation(project(":core:dagger"))
+    implementation(project(":core:kotterknife"))
+    implementation(project(":core:model"))
+    implementation(project(":lib:arch"))
+    implementation(project(":lib:resource"))
+    implementation(project(":lib:service:tmdb:tmdbcore"))
+    implementation(project(":lib:epoxy"))
 
     implementation(Config.Libs.androidx_appcompat) { exclude(group = "android.arch.lifecycle") }
     implementation(Config.Libs.material_design_components)
@@ -25,6 +27,8 @@ dependencies {
     implementation(Config.Libs.androidx_lifecycle_extensions)
     implementation(Config.Libs.androidx_navigation_fragment_ktx)
     implementation(Config.Libs.androidx_navigation_ui_ktx)
+
+    implementation(Config.Libs.timber)
 
     implementation(Config.Libs.mvrx)
     implementation(Config.Libs.epoxy) { exclude(group = "com.android.support") }

@@ -1,7 +1,7 @@
 package com.pwillmann.moviediscovery.feature.browser
 
 import androidx.lifecycle.ViewModel
-import com.pwillmann.moviediscovery.core.di.ViewModelKey
+import com.pwillmann.moviediscovery.core.dagger.viewmodel.ViewModelKey
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
