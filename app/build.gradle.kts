@@ -28,13 +28,15 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(project(":core"))
-    implementation(project(":model"))
-    implementation(project(":resource"))
-    implementation(project(":service:tmdb:tmdbcore"))
-    implementation(project(":service:tmdb:tmdbmock"))
-    implementation(project(":service:tmdb:tmdbremote"))
-    implementation(project(":epoxy"))
+    implementation(project(":core:dagger"))
+    implementation(project(":core:kotterknife"))
+    implementation(project(":core:model"))
+    implementation(project(":lib:arch"))
+    implementation(project(":lib:resource"))
+    implementation(project(":lib:service:tmdb:tmdbcore"))
+    implementation(project(":lib:service:tmdb:tmdbmock"))
+    implementation(project(":lib:service:tmdb:tmdbremote"))
+    implementation(project(":lib:epoxy"))
     implementation(project(":feature:browser"))
     implementation(project(":feature:detail"))
     implementation(Config.Libs.kotlin_stdlib)
@@ -45,6 +47,8 @@ dependencies {
     implementation(Config.Libs.androidx_constraintlayout)
     implementation(Config.Libs.androidx_navigation_fragment_ktx)
     implementation(Config.Libs.androidx_navigation_ui_ktx)
+
+    implementation(Config.Libs.timber)
 
     // AirBnB
     implementation(Config.Libs.mvrx)

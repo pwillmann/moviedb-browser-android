@@ -4,7 +4,7 @@ import com.pwillmann.moviediscovery.app.MvRxApplication
 import com.pwillmann.moviediscovery.app.di.module.ActivityModule
 import com.pwillmann.moviediscovery.app.di.module.ApplicationModule
 import com.pwillmann.moviediscovery.app.di.module.FragmentModule
-import com.pwillmann.moviediscovery.core.di.ViewModelBuilder
+import com.pwillmann.moviediscovery.core.dagger.viewmodel.ViewModelBuilder
 import com.pwillmann.moviediscovery.service.tmdb.mock.MockModule
 import com.pwillmann.moviediscovery.service.tmdb.remote.RemoteModule
 import dagger.Component

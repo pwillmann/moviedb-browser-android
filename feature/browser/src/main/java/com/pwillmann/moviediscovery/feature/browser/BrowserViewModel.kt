@@ -8,7 +8,7 @@ import com.airbnb.mvrx.MvRxViewModelFactory
 import com.airbnb.mvrx.Success
 import com.airbnb.mvrx.Uninitialized
 import com.airbnb.mvrx.ViewModelContext
-import com.pwillmann.moviediscovery.core.mvrx.MvRxViewModel
+import com.pwillmann.moviediscovery.lib.arch.mvrx.MvRxViewModel
 import com.pwillmann.moviediscovery.model.PaginatedListResponse
 import com.pwillmann.moviediscovery.model.TvShowCompact
 import com.pwillmann.moviediscovery.model.mergeWith

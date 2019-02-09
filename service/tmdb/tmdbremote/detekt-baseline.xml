@@ -1,7 +1,0 @@
-<?xml version="1.0" ?>
-<SmellBaseline>
-  <Blacklist timestamp="1549537379635"></Blacklist>
-  <Whitelist timestamp="1549537379635">
-    <ID>MagicNumber:RemoteModule.kt$RemoteModule$60</ID>
-  </Whitelist>
-</SmellBaseline>

@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <Blacklist timestamp="1549712446416"></Blacklist>
+  <Whitelist timestamp="1549712446416">
+    <ID>TooManyFunctions:MvRxEpoxyFragment.kt$MvRxEpoxyFragment : BaseMvRxFragment</ID>
+  </Whitelist>
+</SmellBaseline>
