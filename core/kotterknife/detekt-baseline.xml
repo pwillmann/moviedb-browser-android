@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
   <Blacklist timestamp="1549712447407"></Blacklist>
-  <Whitelist timestamp="1549809767602">
+  <Whitelist timestamp="1549822044805">
     <ID>MatchingDeclarationName:Kotterknife.kt$com.pwillmann.moviediscovery.core.kotterknife.Kotterknife.kt</ID>
     <ID>TooManyFunctions:Kotterknife.kt$com.pwillmann.moviediscovery.core.kotterknife.Kotterknife.kt</ID>
   </Whitelist>

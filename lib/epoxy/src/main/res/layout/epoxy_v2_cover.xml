@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cover_container"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
+
+    tools:layout_height="250dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cover_card"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp"
+
+        app:layout_constraintBottom_toTopOf="@+id/cover_title"
+        app:layout_constraintDimensionRatio="H,10:16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/cover_card_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?android:selectableItemBackground">
+
+            <ImageView
+                android:id="@+id/cover_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gunmetal"
+                android:scaleType="centerCrop"
+                tools:src="@color/gunmetal" />
+        </FrameLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/cover_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:textSize="16sp"
+        android:maxLines="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cover_card"
+        tools:text="Avengers" />
+</androidx.constraintlayout.widget.ConstraintLayout>

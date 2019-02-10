@@ -19,7 +19,7 @@ import javax.inject.Singleton
 // Used to be able to setup debug libraries in the debug build type, empty for release builds
 @Singleton
 class DebugAppDelegate @Inject constructor(
-    val networkFlipperPlugin: NetworkFlipperPlugin
+    private val networkFlipperPlugin: NetworkFlipperPlugin
 ) : AppDelegate() {
 
     override fun onCreate(application: Application) {

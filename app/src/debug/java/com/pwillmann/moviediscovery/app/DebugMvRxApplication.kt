@@ -5,16 +5,14 @@ import com.pwillmann.moviediscovery.app.di.module.ApplicationModule
 import javax.inject.Inject
 
 class DebugMvRxApplication : MvRxApplication() {
+
     @Inject
     lateinit var appDelegate: DebugAppDelegate
 
     override fun appDelegate(): AppDelegate = appDelegate
 
-    override fun onCreate() {
-        DaggerDebugAppComponent.builder()
-                .applicationModule(ApplicationModule(this))
-                .build()
-                .inject(this)
-        super.onCreate()
-    }
+    override fun initDagger() = DaggerDebugAppComponent.builder()
+            .applicationModule(ApplicationModule(this))
+            .build()
+            .inject(this)
 }

@@ -1,5 +1,6 @@
 package com.pwillmann.moviediscovery.app.di.component
 
+import com.pwillmann.moviediscovery.app.ReleaseMvRxApplication
 import com.pwillmann.moviediscovery.app.di.module.ActivityModule
 import com.pwillmann.moviediscovery.app.di.module.ApplicationModule
 import com.pwillmann.moviediscovery.app.di.module.FragmentModule
@@ -25,4 +26,4 @@ import javax.inject.Singleton
             ViewModelBuilder::class]
 )
 @Singleton
-interface ReleaseAppComponent : AppComponent
+interface ReleaseAppComponent : AppComponent<ReleaseMvRxApplication>

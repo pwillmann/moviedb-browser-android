@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.Interpolator
 import androidx.annotation.Px
+import com.pwillmann.moviediscovery.epoxy.v2.gallery.layoutmanager.GalleryPivot
+import com.pwillmann.moviediscovery.epoxy.v2.gallery.layoutmanager.GalleryScrollItemTransformer
 import kotlin.math.sign
 
 class GalleryTransformer : GalleryScrollItemTransformer {

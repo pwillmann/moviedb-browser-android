@@ -1,4 +1,4 @@
-package com.pwillmann.moviediscovery.epoxy.v2.gallery
+package com.pwillmann.moviediscovery.epoxy.v2.gallery.layoutmanager
 
 import android.view.View
 import androidx.annotation.IntDef

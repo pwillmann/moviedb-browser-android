@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
   <Blacklist timestamp="1549537377431"></Blacklist>
-  <Whitelist timestamp="1549809767744">
+  <Whitelist timestamp="1549822044877">
     <ID>ComplexMethod:GalleryLayoutManager.kt$GalleryLayoutManager$protected fun calculateAllowedScrollIn(direction: Direction): Int</ID>
     <ID>LargeClass:GalleryLayoutManager.kt$GalleryLayoutManager : LayoutManager</ID>
     <ID>MagicNumber:GalleryCarousel.kt$GalleryCarousel$0.85f</ID>
