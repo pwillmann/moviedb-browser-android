@@ -29,8 +29,8 @@ import com.pwillmann.moviediscovery.epoxy.card.cardTitle
 import com.pwillmann.moviediscovery.epoxy.loadingRow
 import com.pwillmann.moviediscovery.lib.arch.mvrx.MvRxEpoxyFragment
 import com.pwillmann.moviediscovery.lib.arch.mvrx.simpleController
-import com.pwillmann.moviediscovery.model.TvShow
-import com.pwillmann.moviediscovery.service.tmdb.core.TMDBConfig
+import com.pwillmann.moviediscovery.lib.datasource.tmdb.TMDBConfig
+import com.pwillmann.moviediscovery.lib.datasource.tmdb.tvshow.model.TvShow
 import timber.log.Timber
 import javax.inject.Inject
 

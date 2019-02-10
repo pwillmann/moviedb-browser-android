@@ -11,11 +11,11 @@ import com.airbnb.mvrx.PersistState
 import com.airbnb.mvrx.Uninitialized
 import com.airbnb.mvrx.ViewModelContext
 import com.pwillmann.moviediscovery.lib.arch.mvrx.MvRxViewModel
-import com.pwillmann.moviediscovery.model.PaginatedListResponse
-import com.pwillmann.moviediscovery.model.TvShow
-import com.pwillmann.moviediscovery.model.TvShowCompact
-import com.pwillmann.moviediscovery.model.mergeWith
-import com.pwillmann.moviediscovery.service.tmdb.core.TvShowsService
+import com.pwillmann.moviediscovery.lib.datasource.tmdb.model.PaginatedListResponse
+import com.pwillmann.moviediscovery.lib.datasource.tmdb.model.mergeWith
+import com.pwillmann.moviediscovery.lib.datasource.tmdb.tvshow.RetrofitTvShowApi
+import com.pwillmann.moviediscovery.lib.datasource.tmdb.tvshow.model.TvShow
+import com.pwillmann.moviediscovery.lib.datasource.tmdb.tvshow.model.TvShowCompact
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import kotlinx.android.parcel.Parcelize
@@ -37,7 +37,7 @@ data class DetailState(
  */
 class DetailViewModel @AssistedInject constructor(
     @Assisted initialViewState: DetailState,
-    private val tvShowsService: TvShowsService
+    private val tvShowsService: RetrofitTvShowApi
 ) : MvRxViewModel<DetailState>(initialViewState) {
 
     init {

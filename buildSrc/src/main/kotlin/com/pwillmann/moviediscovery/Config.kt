@@ -27,6 +27,7 @@ object Config {
         // Networking
         val retrofit = "2.5.0"
         val moshi = "1.8.0"
+        val okhttp = "3.13.1"
 
         // AirBnB
         val epoxy = "3.2.0"

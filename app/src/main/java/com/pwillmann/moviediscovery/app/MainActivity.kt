@@ -20,6 +20,7 @@ import timber.log.Timber
  * 3) Manually integrate this into your base Activity (not recommended).
  */
 class MainActivity : BaseMvRxActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)

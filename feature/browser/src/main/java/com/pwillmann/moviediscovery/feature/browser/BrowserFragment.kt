@@ -25,7 +25,7 @@ import com.pwillmann.moviediscovery.epoxy.v2.withModelsFrom
 import com.pwillmann.moviediscovery.feature.detail.DetailStateArgs
 import com.pwillmann.moviediscovery.lib.arch.mvrx.MvRxEpoxyFragment
 import com.pwillmann.moviediscovery.lib.arch.mvrx.simpleController
-import com.pwillmann.moviediscovery.service.tmdb.core.TMDBConfig
+import com.pwillmann.moviediscovery.lib.datasource.tmdb.TMDBConfig
 import timber.log.Timber
 import javax.inject.Inject
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
   <Blacklist timestamp="1549712446025"></Blacklist>
-  <Whitelist timestamp="1549712446025">
+  <Whitelist timestamp="1549809766756">
     <ID>TooGenericExceptionCaught:DaggerViewModelFactory.kt$DaggerViewModelFactory$e: Exception</ID>
     <ID>TooGenericExceptionThrown:DaggerViewModelFactory.kt$DaggerViewModelFactory$throw RuntimeException(e)</ID>
   </Whitelist>

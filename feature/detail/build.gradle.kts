@@ -14,10 +14,9 @@ androidExtensions {
 dependencies {
     implementation(project(":core:dagger"))
     implementation(project(":core:kotterknife"))
-    implementation(project(":core:model"))
     implementation(project(":lib:arch"))
+    implementation(project(":lib:datasource:tmdb"))
     implementation(project(":lib:resource"))
-    implementation(project(":lib:service:tmdb:tmdbcore"))
     implementation(project(":lib:epoxy"))
 
     implementation(Config.Libs.androidx_appcompat) { exclude(group = "android.arch.lifecycle") }

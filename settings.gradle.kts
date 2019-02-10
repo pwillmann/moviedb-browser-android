@@ -2,13 +2,11 @@ include(
         ":app",
         ":core:dagger",
         ":core:kotterknife",
-        ":core:model",
         ":lib:arch",
+        ":lib:datasource:tmdb",
         ":lib:epoxy",
         ":lib:resource",
-        ":lib:service:tmdb:tmdbcore",
-        ":lib:service:tmdb:tmdbmock",
-        ":lib:service:tmdb:tmdbremote",
+        ":lib:remote",
         ":feature:browser",
         ":feature:detail"
 )

@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
   <Blacklist timestamp="1549537376912"></Blacklist>
-  <Whitelist timestamp="1549712446839">
+  <Whitelist timestamp="1549809767090">
     <ID>MagicNumber:BrowserFragment.kt$BrowserFragment$8</ID>
   </Whitelist>
 </SmellBaseline>
