@@ -3,24 +3,15 @@
 # to use the pre-commit hook just copy the pre-commit file to .git/hooks/pre-commit
 # eg via "cp pre-commit .git/hooks/pre-commit"
 
-# run SpotlessApply to fix violations
-./gradlew spotlessCheck
+# runs spotless and detekt
+./gradlew spotlessCheck detekt
 
-# store the exit code of spotlessCheck in a variable
+# store the exit code of spotlessCheck and detekt in a variable
 RESULT=$?
 
 if [ $RESULT != 0 ]
-# run detekt
-    ./gradlew detekt
-    # store the exit code of detekt in a variable
-    RESULT=$?
-
-    if [ $RESULT != 0 ]
-    then
-        echo "Detekt found some violations"
-    fi
 then
-    echo "Spotless found some violations, please run the following command to let Spotless try to fix them"
+    echo "Spotless and/or detekt found some violations, please run the following command to let Spotless try to fix them"
     echo "\n\t ./gradlew spotlessApply\n"
 fi
 

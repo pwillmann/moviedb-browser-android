@@ -13,7 +13,7 @@ of the system wide `.gradle` folder.
 `TMDB_API_KEY="API_KEY"`.
 
 If you want to run `spotless` and `detekt` automatically before committing, just copy the `pre-commit` file to
-`.git/hooks/`.
+`.git/hooks/`. To make sure the hook is executable run `chmod +x .git/hooks/pre-commit`.
 
 ## Third-Party Libraries
 
