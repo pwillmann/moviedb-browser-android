@@ -10,6 +10,9 @@ object Config {
         val timber = "4.7.1"
         val spotless = "3.17.0"
         val detekt = "1.0.0-RC12"
+        val flipper = "0.15.0"
+        val soloader = "0.5.1"
+        val leakcanary = "1.6.3"
 
         // AndroidX / Google
         val appcompat = "1.1.0-alpha01"
@@ -59,6 +62,11 @@ object Config {
         val kotlin_reflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
         val spotless = "com.diffplug.spotless:spotless-plugin-gradle:${Versions.spotless}"
         val timber = "com.jakewharton.timber:timber:${Versions.timber}"
+        val flipper = "com.facebook.flipper:flipper:${Versions.flipper}"
+        val soloader = "com.facebook.soloader:soloader:${Versions.soloader}"
+        val leakcanary = "com.squareup.leakcanary:leakcanary-android:${Versions.leakcanary}"
+        val leakcanary_noop = "com.squareup.leakcanary:leakcanary-android-no-op:${Versions.leakcanary}"
+        val leakcanary_support = "com.squareup.leakcanary:leakcanary-support-fragment:${Versions.leakcanary}"
 
         // AndroidX
         val androidx_core = "androidx.core:core-ktx:${Versions.ktxCore}"
@@ -91,7 +99,7 @@ object Config {
         val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroid}"
         val rxbinding = "com.jakewharton.rxbinding3:rxbinding:${Versions.rxBinding}"
 
-        // Dagger
+        // Dependency Injection
         val dagger = "com.google.dagger:dagger:${Versions.dagger}"
         val dagger_processor = "com.google.dagger:dagger-compiler:${Versions.dagger}"
         val dagger_android = "com.google.dagger:dagger-android:${Versions.dagger}"

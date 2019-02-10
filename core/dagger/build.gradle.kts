@@ -9,6 +9,7 @@ plugins {
 dependencies {
     implementation(Config.Libs.kotlin_reflect)
 
+    // Logging
     implementation(Config.Libs.timber)
 
     implementation(Config.Libs.androidx_navigation_fragment_ktx)

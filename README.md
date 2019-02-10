@@ -12,30 +12,8 @@ of the system wide `.gradle` folder.
 
 `TMDB_API_KEY="API_KEY"`.
 
-## Project
-
-Modules are split in three main categories:
-
-* feature/
-* lib/
-* core/
-
-### Feature Modules
-
-Are Android Library Modules that contain Screens of the App. Features can not depend on each other,
-only lib and core modules are allowed to be imported
-
-### Lib Modules
-
-Are Plain Java/Kotlin/ Android Modules and provide more advanced helper utilities, resources, architecture helper and data provider.
-Lib Modules can not depend on Feature Modules, only core modules are allowed as dependencies.
-
-Only Exception are Repo modules, those are allowed to depend on DataSource modules.
-
-### Core Modules
-
-Are Plain Java/Kotlin/Android Modules that don't have any further project internal dependencies and are safe to be depended on by anything.
-
+If you want to run `spotless` and `detekt` automatically before committing, just copy the `pre-commit` file to
+`.git/hooks/`. To make sure the hook is executable run `chmod +x .git/hooks/pre-commit`.
 
 ## Third-Party Libraries
 
@@ -53,4 +31,6 @@ The following libraries were at least partially used in this project:
 * [Detekt](https://github.com/arturbosch/detekt)
 * [Spotless](https://github.com/diffplug/spotless/tree/master/plugin-gradle)
 * [Butterknife gradle plugin](https://github.com/JakeWharton/butterknife)
+* [Flipper](https://github.com/facebook/flipper)
+* [LeakCanary](https://github.com/square/leakcanary)
 
