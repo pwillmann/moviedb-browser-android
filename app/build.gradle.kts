@@ -23,6 +23,13 @@ android {
         versionCode = Integer.parseInt(VERSION_CODE)
         versionName = VERSION_NAME
     }
+
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+        }
+    }
     lintOptions.setLintConfig(rootProject.file("lint.xml"))
 }
 
