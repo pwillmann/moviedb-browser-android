@@ -3,6 +3,7 @@ package com.pwillmann.moviediscovery.app.di.component
 import com.pwillmann.moviediscovery.app.MvRxApplication
 import com.pwillmann.moviediscovery.app.di.module.ActivityModule
 import com.pwillmann.moviediscovery.app.di.module.ApplicationModule
+import com.pwillmann.moviediscovery.app.di.module.DebuggingModule
 import com.pwillmann.moviediscovery.app.di.module.FragmentModule
 import com.pwillmann.moviediscovery.core.dagger.configuration.AppConfigurationModule
 import com.pwillmann.moviediscovery.core.dagger.viewmodel.ViewModelBuilder
@@ -20,6 +21,7 @@ import javax.inject.Singleton
             AndroidSupportInjectionModule::class,
             AppConfigurationModule::class,
             ApplicationModule::class,
+            DebuggingModule::class,
             FragmentModule::class,
             RemoteModule::class,
             TMDBModule::class,

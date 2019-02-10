@@ -27,4 +27,8 @@ dependencies {
     implementation(Config.Libs.dagger_android)
     implementation(Config.Libs.dagger_android_support)
     kapt(Config.Libs.dagger_android_processor)
+
+    // Debugging
+    debugImplementation(Config.Libs.flipper)
+    debugImplementation(Config.Libs.soloader)
 }

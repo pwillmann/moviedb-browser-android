@@ -46,6 +46,7 @@ dependencies {
     implementation(Config.Libs.androidx_navigation_fragment_ktx)
     implementation(Config.Libs.androidx_navigation_ui_ktx)
 
+    // Logging
     implementation(Config.Libs.timber)
 
     // AirBnB
@@ -57,7 +58,7 @@ dependencies {
     implementation(Config.Libs.rxJava)
     implementation(Config.Libs.rxAndroid)
 
-    // Retrofit, Moshi, Networking
+    // Networking
     implementation(Config.Libs.retrofit)
     implementation(Config.Libs.retrofit_rxjava)
     implementation(Config.Libs.retrofit_moshi)
@@ -65,10 +66,17 @@ dependencies {
     implementation(Config.Libs.moshi_kotlin)
     kapt(Config.Libs.moshi_processor)
 
-    // Dagger
+    // Dependency Injection
     implementation(Config.Libs.dagger)
     kapt(Config.Libs.dagger_processor)
     implementation(Config.Libs.dagger_android)
     implementation(Config.Libs.dagger_android_support)
     kapt(Config.Libs.dagger_android_processor)
+
+    // Debugging
+    debugImplementation(Config.Libs.flipper)
+    debugImplementation(Config.Libs.soloader)
+    debugImplementation(Config.Libs.leakcanary)
+    releaseImplementation(Config.Libs.leakcanary_noop)
+    debugImplementation(Config.Libs.leakcanary_support)
 }
