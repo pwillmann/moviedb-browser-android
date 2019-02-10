@@ -7,13 +7,10 @@ class ReleaseMvRxApplication : MvRxApplication() {
 
     override fun appDelegate(): AppDelegate = delegate
 
-    override fun onCreate() {
-        DaggerReleaseAppComponent.builder()
-                .applicationModule(ApplicationModule(this))
-                .build()
-                .inject(this)
-        super.onCreate()
-    }
+    override fun initDagger() = DaggerReleaseAppComponent.builder()
+            .applicationModule(ApplicationModule(this))
+            .build()
+            .inject(this)
 
     companion object {
         val delegate: AppDelegate = ReleaseAppDelegate()

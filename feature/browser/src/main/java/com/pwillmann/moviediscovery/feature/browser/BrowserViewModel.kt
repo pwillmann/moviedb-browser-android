@@ -16,8 +16,10 @@ import com.pwillmann.moviediscovery.lib.datasource.tmdb.tvshow.model.TvShowCompa
 import javax.inject.Inject
 
 data class BrowserState(
-    val tvShowsResponse: PaginatedListResponse<TvShowCompact>? = PaginatedListResponse(0, 0, 0, emptyList()),
-    val request: Async<PaginatedListResponse<TvShowCompact>> = Uninitialized
+    val popularTvShowsResponse: PaginatedListResponse<TvShowCompact>? = PaginatedListResponse(0, 0, 0, emptyList()),
+    val popularTvShowsRequest: Async<PaginatedListResponse<TvShowCompact>> = Uninitialized,
+    val topRatedTvShowsResponse: PaginatedListResponse<TvShowCompact>? = PaginatedListResponse(0, 0, 0, emptyList()),
+    val topRatedTvShowsRequest: Async<PaginatedListResponse<TvShowCompact>> = Uninitialized
 ) : MvRxState
 
 class BrowserViewModel @Inject constructor(
@@ -26,6 +28,7 @@ class BrowserViewModel @Inject constructor(
 
     init {
         fetchNextPage()
+        fetchTopRatedTvShows()
     }
 
     /**
@@ -33,12 +36,12 @@ class BrowserViewModel @Inject constructor(
      * fetching them again
      */
     fun refresh() = withState { state ->
-        if (state.request is Loading) return@withState
+        if (state.popularTvShowsRequest is Loading) return@withState
         tvShowsService
                 .getPopularTvShows(page = 1)
                 .execute {
-                    copy(request = it, tvShowsResponse = if (it.complete && it is Success) it() else it()
-                            ?: tvShowsResponse)
+                    copy(popularTvShowsRequest = it, popularTvShowsResponse = if (it.complete && it is Success) it() else it()
+                            ?: popularTvShowsResponse)
                 }
     }
 
@@ -47,14 +50,24 @@ class BrowserViewModel @Inject constructor(
      * page and merge it into the already available list of tv shows
      */
     fun fetchNextPage() = withState { state ->
-        if (state.request is Loading) return@withState
-        if (state.tvShowsResponse != null && (state.tvShowsResponse.page >= state.tvShowsResponse.totalPages && state.tvShowsResponse.page != 0)) return@withState
+        if (state.popularTvShowsRequest is Loading) return@withState
+        if (state.popularTvShowsResponse != null && (state.popularTvShowsResponse.page >= state.popularTvShowsResponse.totalPages && state.popularTvShowsResponse.page != 0)) return@withState
 
-        val currentPage = state.tvShowsResponse?.page ?: 0
+        val currentPage = state.popularTvShowsResponse?.page ?: 0
         tvShowsService
                 .getPopularTvShows(page = currentPage + 1)
                 .execute {
-                    copy(request = it, tvShowsResponse = state.tvShowsResponse.mergeWith(it()))
+                    copy(popularTvShowsRequest = it, popularTvShowsResponse = state.popularTvShowsResponse.mergeWith(it()))
+                }
+    }
+
+    fun fetchTopRatedTvShows() = withState { state ->
+        if (state.topRatedTvShowsRequest is Loading) return@withState
+        tvShowsService
+                .getTopRatedTvShows(page = 1)
+                .execute {
+                    copy(topRatedTvShowsRequest = it, topRatedTvShowsResponse = if (it.complete && it is Success) it() else it()
+                            ?: topRatedTvShowsResponse)
                 }
     }
 

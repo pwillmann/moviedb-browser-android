@@ -16,6 +16,12 @@ interface RetrofitTvShowApi {
         @Query("page") page: Int? = null
     ): Single<PaginatedListResponse<TvShowCompact>>
 
+    @GET("tv/top_rated")
+    fun getTopRatedTvShows(
+        @Query("language") query: String? = null,
+        @Query("page") page: Int? = null
+    ): Single<PaginatedListResponse<TvShowCompact>>
+
     @GET("tv/{tv_id}/similar")
     fun getSimilarShows(
         @Path("tv_id") tvShowId: Long,

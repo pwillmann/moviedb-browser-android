@@ -1,12 +1,11 @@
-package com.pwillmann.moviediscovery.epoxy.v2
+package com.pwillmann.moviediscovery.epoxy.v2.gallery
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.epoxy.Carousel
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.ModelView
-import com.pwillmann.moviediscovery.epoxy.v2.gallery.GalleryLayoutManager
-import com.pwillmann.moviediscovery.epoxy.v2.gallery.GalleryTransformer
+import com.pwillmann.moviediscovery.epoxy.v2.gallery.layoutmanager.GalleryLayoutManager
 
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
 class GalleryCarousel(context: Context) : Carousel(context) {

@@ -1,5 +1,6 @@
 package com.pwillmann.moviediscovery.app.di.component
 
+import com.pwillmann.moviediscovery.app.DebugMvRxApplication
 import com.pwillmann.moviediscovery.app.di.module.ActivityModule
 import com.pwillmann.moviediscovery.app.di.module.ApplicationModule
 import com.pwillmann.moviediscovery.app.di.module.DebuggingModule
@@ -27,4 +28,4 @@ import javax.inject.Singleton
             ViewModelBuilder::class]
 )
 @Singleton
-interface DebugAppComponent : AppComponent
+interface DebugAppComponent : AppComponent<DebugMvRxApplication>

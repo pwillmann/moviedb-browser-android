@@ -19,12 +19,15 @@ import com.pwillmann.moviediscovery.core.kotterknife.bindView
 import com.pwillmann.moviediscovery.epoxy.loadingRow
 import com.pwillmann.moviediscovery.epoxy.titleRow
 import com.pwillmann.moviediscovery.epoxy.tvItem
-import com.pwillmann.moviediscovery.epoxy.v2.ImageCardItem_
-import com.pwillmann.moviediscovery.epoxy.v2.galleryCarousel
-import com.pwillmann.moviediscovery.epoxy.v2.withModelsFrom
+import com.pwillmann.moviediscovery.epoxy.v2.CoverItem_
+import com.pwillmann.moviediscovery.epoxy.v2.gallery.GalleryImageCardItem_
+import com.pwillmann.moviediscovery.epoxy.v2.gallery.galleryCarousel
+import com.pwillmann.moviediscovery.epoxy.v2.gallery.withModelsFrom
 import com.pwillmann.moviediscovery.feature.detail.DetailStateArgs
 import com.pwillmann.moviediscovery.lib.arch.mvrx.MvRxEpoxyFragment
+import com.pwillmann.moviediscovery.lib.arch.mvrx.carousel
 import com.pwillmann.moviediscovery.lib.arch.mvrx.simpleController
+import com.pwillmann.moviediscovery.lib.arch.mvrx.withModelsFrom
 import com.pwillmann.moviediscovery.lib.datasource.tmdb.TMDBConfig
 import timber.log.Timber
 import javax.inject.Inject
@@ -63,12 +66,12 @@ class BrowserFragment : MvRxEpoxyFragment() {
             }
         }
 
-        viewModel.asyncSubscribe(BrowserState::request, onFail = { error ->
+        viewModel.asyncSubscribe(BrowserState::popularTvShowsRequest, onFail = { error ->
             errorSnackbar = Snackbar.make(constraintLayout, R.string.browser_error_tvshows, Snackbar.LENGTH_INDEFINITE)
             errorSnackbar!!.setAction(R.string.browser_error_retry) { _ -> viewModel.refresh() }
             errorSnackbar!!.show()
 
-            Timber.w(error, "Tv Shows request failed")
+            Timber.w(error, "Tv Shows popularTvShowsRequest failed")
         })
     }
 
@@ -90,7 +93,7 @@ class BrowserFragment : MvRxEpoxyFragment() {
     override fun recyclerView(): EpoxyRecyclerView = recyclerView
 
     override fun epoxyController() = simpleController(viewModel) { state ->
-        if (state.tvShowsResponse == null) {
+        if (state.popularTvShowsResponse == null) {
             loadingRow {
                 // Changing the ID will force it to rebind when new data is loaded even if it is
                 // still on screen which will ensure that we trigger loading again.
@@ -103,8 +106,8 @@ class BrowserFragment : MvRxEpoxyFragment() {
             id("carousel")
             padding(Carousel.Padding.dp(8, 0))
 
-            withModelsFrom(state.tvShowsResponse.results) {
-                ImageCardItem_()
+            withModelsFrom(state.popularTvShowsResponse.results) {
+                GalleryImageCardItem_()
                         .id("carousel-item-${it.id}")
                         .url("${TMDBConfig.tmdbImageBaseUrl}/${TMDBConfig.posterSizes[TMDBConfig.ImageSize.MEDIUM.toString()]}/${it.posterPath}")
             }
@@ -115,7 +118,26 @@ class BrowserFragment : MvRxEpoxyFragment() {
             title(R.string.browser_title)
         }
 
-        state.tvShowsResponse.results.forEach { tvShow ->
+        if (state.topRatedTvShowsResponse == null) {
+            loadingRow {
+                // Changing the ID will force it to rebind when new data is loaded even if it is
+                // still on screen which will ensure that we trigger loading again.
+                id("loading")
+            }
+            return@simpleController
+        }
+        carousel {
+            id("top-rated-carousel")
+            numViewsToShowOnScreen(3.5f)
+            withModelsFrom(state.topRatedTvShowsResponse.results) {
+                CoverItem_()
+                        .id("top-rated-${it.id}")
+                        .imageUrl("${TMDBConfig.tmdbImageBaseUrl}/${TMDBConfig.posterSizes[TMDBConfig.ImageSize.MEDIUM.toString()]}/${it.posterPath}")
+                        .title(it.name)
+            }
+        }
+
+        state.popularTvShowsResponse.results.forEach { tvShow ->
             tvItem {
                 id(tvShow.id)
                 title(tvShow.name)
@@ -133,7 +155,7 @@ class BrowserFragment : MvRxEpoxyFragment() {
         loadingRow {
             // Changing the ID will force it to rebind when new data is loaded even if it is
             // still on screen which will ensure that we trigger loading again.
-            id("loading${state.tvShowsResponse.page}")
+            id("loading${state.popularTvShowsResponse.page}")
             onBind { _, _, _ -> viewModel.fetchNextPage() }
         }
     }
