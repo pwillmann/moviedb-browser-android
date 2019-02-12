@@ -1,18 +1,14 @@
 package com.pwillmann.moviediscovery.feature.browser
 
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.IdRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.airbnb.epoxy.Carousel
 import com.airbnb.epoxy.EpoxyRecyclerView
-import com.airbnb.mvrx.MvRx
 import com.airbnb.mvrx.fragmentViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.pwillmann.moviediscovery.core.kotterknife.bindView
@@ -23,7 +19,6 @@ import com.pwillmann.moviediscovery.epoxy.v2.CoverItem_
 import com.pwillmann.moviediscovery.epoxy.v2.gallery.GalleryImageCardItem_
 import com.pwillmann.moviediscovery.epoxy.v2.gallery.galleryCarousel
 import com.pwillmann.moviediscovery.epoxy.v2.gallery.withModelsFrom
-import com.pwillmann.moviediscovery.feature.detail.DetailStateArgs
 import com.pwillmann.moviediscovery.lib.arch.mvrx.MvRxEpoxyFragment
 import com.pwillmann.moviediscovery.lib.arch.mvrx.carousel
 import com.pwillmann.moviediscovery.lib.arch.mvrx.simpleController
@@ -41,6 +36,9 @@ class BrowserFragment : MvRxEpoxyFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    @Inject
+    lateinit var browserNavigation: BrowserNavigation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,11 +83,6 @@ class BrowserFragment : MvRxEpoxyFragment() {
         super.onDestroyView()
     }
 
-    private fun navigateTo(@IdRes actionId: Int, arg: Parcelable? = null) {
-        val bundle = arg?.let { Bundle().apply { putParcelable(MvRx.KEY_ARG, it) } }
-        findNavController().navigate(actionId, bundle)
-    }
-
     override fun recyclerView(): EpoxyRecyclerView = recyclerView
 
     override fun epoxyController() = simpleController(viewModel) { state ->
@@ -110,6 +103,7 @@ class BrowserFragment : MvRxEpoxyFragment() {
                 GalleryImageCardItem_()
                         .id("carousel-item-${it.id}")
                         .url("${TMDBConfig.tmdbImageBaseUrl}/${TMDBConfig.posterSizes[TMDBConfig.ImageSize.MEDIUM.toString()]}/${it.posterPath}")
+                        .clickListener { _ -> browserNavigation.navigateToDetail(it.id) }
             }
         }
 
@@ -134,6 +128,7 @@ class BrowserFragment : MvRxEpoxyFragment() {
                         .id("top-rated-${it.id}")
                         .imageUrl("${TMDBConfig.tmdbImageBaseUrl}/${TMDBConfig.posterSizes[TMDBConfig.ImageSize.MEDIUM.toString()]}/${it.posterPath}")
                         .title(it.name)
+                        .clickListener { _ -> browserNavigation.navigateToDetail(it.id) }
             }
         }
 
@@ -146,8 +141,7 @@ class BrowserFragment : MvRxEpoxyFragment() {
                 voteCount(tvShow.voteCount.toString())
                 posterImageUrl("${TMDBConfig.tmdbImageBaseUrl}/${TMDBConfig.posterSizes[TMDBConfig.ImageSize.SMALL.toString()]}/${tvShow.posterPath}")
                 clickListener { _ ->
-                    navigateTo(R.id.action_browserFragment_to_detailFragment,
-                            DetailStateArgs(tvShow.id))
+                    browserNavigation.navigateToDetail(tvShow.id)
                 }
             }
         }

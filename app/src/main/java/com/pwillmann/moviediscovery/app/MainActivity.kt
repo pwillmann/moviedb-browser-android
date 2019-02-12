@@ -1,9 +1,12 @@
 package com.pwillmann.moviediscovery.app
 
 import android.os.Bundle
+import androidx.navigation.findNavController
 import com.airbnb.mvrx.BaseMvRxActivity
+import com.pwillmann.moviediscovery.app.navigation.AppNavigator
 import dagger.android.AndroidInjection
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Extend this class to get MvRx support out of the box.
@@ -20,12 +23,15 @@ import timber.log.Timber
  * 3) Manually integrate this into your base Activity (not recommended).
  */
 class MainActivity : BaseMvRxActivity() {
+    @Inject
+    lateinit var appNavigator: AppNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         logLifecycle("onCreate()")
+        appNavigator.bind(findNavController(R.id.my_nav_host_fragment))
     }
 
     override fun onStart() {
@@ -51,6 +57,7 @@ class MainActivity : BaseMvRxActivity() {
     override fun onDestroy() {
         super.onDestroy()
         logLifecycle("onDestroy()")
+        appNavigator.unbind()
     }
 
     private fun logLifecycle(message: String) {
