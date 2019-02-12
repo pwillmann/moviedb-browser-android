@@ -21,6 +21,7 @@ import javax.inject.Singleton
             AppConfigurationModule::class,
             ApplicationModule::class,
             FragmentModule::class,
+            NavigationModule::class,
             RemoteModule::class,
             TMDBModule::class,
             ViewModelBuilder::class]

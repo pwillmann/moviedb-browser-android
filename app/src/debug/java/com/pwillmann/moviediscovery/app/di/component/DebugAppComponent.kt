@@ -5,6 +5,7 @@ import com.pwillmann.moviediscovery.app.di.module.ActivityModule
 import com.pwillmann.moviediscovery.app.di.module.ApplicationModule
 import com.pwillmann.moviediscovery.app.di.module.DebuggingModule
 import com.pwillmann.moviediscovery.app.di.module.FragmentModule
+import com.pwillmann.moviediscovery.app.di.module.NavigationModule
 import com.pwillmann.moviediscovery.core.dagger.configuration.AppConfigurationModule
 import com.pwillmann.moviediscovery.core.dagger.viewmodel.ViewModelBuilder
 import com.pwillmann.moviediscovery.lib.datasource.tmdb.TMDBModule
@@ -23,6 +24,7 @@ import javax.inject.Singleton
             ApplicationModule::class,
             DebuggingModule::class,
             FragmentModule::class,
+            NavigationModule::class,
             RemoteModule::class,
             TMDBModule::class,
             ViewModelBuilder::class]

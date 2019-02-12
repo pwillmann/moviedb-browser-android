@@ -24,7 +24,7 @@ abstract class MvRxApplication : Application(), HasActivityInjector, HasSupportF
     override fun onCreate() {
         super.onCreate()
         initDagger()
-        appDelegate().onCreate(this)
+        appDelegate().onCreate(this@MvRxApplication)
     }
 
     abstract fun appDelegate(): AppDelegate

@@ -18,7 +18,6 @@ dependencies {
     implementation(project(":lib:datasource:tmdb"))
     implementation(project(":lib:resource"))
     implementation(project(":lib:epoxy"))
-    implementation(project(":feature:detail"))
 
     implementation(Config.Libs.androidx_appcompat) { exclude(group = "android.arch.lifecycle") }
     implementation(Config.Libs.material_design_components)
